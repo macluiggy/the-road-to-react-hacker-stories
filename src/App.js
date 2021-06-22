@@ -27,10 +27,18 @@ const App = () => {
         },
     ];
 
-    const [searchTerm, setSearchTerm] = React.useState('React');
+    const [searchTerm, setSearchTerm] = React.useState(
+        localStorage.getItem('identificador') || 'React'
+        );
     //console.log(searchTerm)
+
+    React.useEffect(() => {
+        localStorage.setItem('identificador', searchTerm)
+        console.log(localStorage.getItem('identificador'))
+    }, [searchTerm])
     const handleSearch = event => {
-        setSearchTerm(event.target.value);
+        let v = event.target.value;
+        setSearchTerm(v);
     }
 
     const searchedStories = stories.filter(story =>
@@ -63,12 +71,12 @@ const Search = ({search, onSearch}) =>
 
         </div>
 
-const List = ({list}) => list.map(({objectID, ...item}) => <Item key={objectID} {...item} />);
+const List = ({list}) => list.map(({objectID:id, ...item}) => <Item key={id} {...item} />);
 
-const Item = ({title, url, author, num_comments, points, objectID, style}) => 
-    <div key={objectID}>
+const Item = ({title:titulo, url, author, num_comments, points, style, }) => 
+    <div>
             <span>
-            <a href={url} style={style}>{title}</a>
+            <a href={url} style={style}>{titulo}</a>
             </span>
             <span>{author}</span>
             <span>{num_comments}</span>
