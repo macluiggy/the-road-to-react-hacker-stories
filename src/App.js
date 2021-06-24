@@ -68,15 +68,15 @@ const App = () => {
 //
 
 const Search = ({search, onSearch}) =>
-        <div>
+        <>
             <label htmlFor="search">Search: </label>
-            <input 
+            <input
             type="text" 
             id='search' 
             onChange={onSearch}
             value={search} />
 
-        </div>
+        </>
 
 const List = ({list}) => list.map(({objectID:id, ...item}) => <Item key={id} {...item} />);
 
