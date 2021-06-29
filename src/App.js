@@ -1,4 +1,5 @@
 import React from 'react';
+import PRACTICING from './PRACTICING.js'
 
 const useSemiPersistenceStatesss = (key, initialState) => {
     const [value, setValue] = React.useState(
@@ -63,19 +64,28 @@ const App = () => {
              onInputChange={handleSearch}
              value={searchTerm}
              //type='number'
-            />
-
+            >
+            <strong><SimpleTextComponent /*
+            se pueden pasar componentes en los React childrens
+            *//></strong>
+            </InputWIthLabel>
 
             <hr />
             <List list={searchedStories}/>
+
+        {/*PRACTICING COMPONENTS*/}
+        <hr />
+        <PRACTICING />
         </div>
     )
 }
 //
 
-const InputWIthLabel = ({id, label, onInputChange, value, type = 'text'}) =>
+const SimpleTextComponent = () => 'Search: ';
+
+const InputWIthLabel = ({id, label, onInputChange, value, type = 'text', children}) =>
         <>
-            <label htmlFor={id}>{label}: </label>
+            <label htmlFor={id}><em>{children}</em> </label>
             <input
             type={type}
             id={id} 
@@ -87,7 +97,7 @@ const InputWIthLabel = ({id, label, onInputChange, value, type = 'text'}) =>
 const List = ({list}) => list.map(({objectID:id, ...item}) => <Item key={id} {...item} />);
 
 const Item = ({title:titulo, url, author, num_comments, points, style, }) => 
-    <div>
+    <div> 
             <span>
             <a href={url} style={style}>{titulo}</a>
             </span>
