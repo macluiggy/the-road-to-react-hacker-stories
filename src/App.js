@@ -1,5 +1,6 @@
 import React from 'react';
 import PRACTICING from './PRACTICING.js'
+import API from './API'
 
 const useSemiPersistenceStatesss = (key, initialState) => {
     const [value, setValue] = React.useState(
@@ -75,7 +76,8 @@ const App = () => {
 
         {/*PRACTICING COMPONENTS*/}
         <hr />
-        <PRACTICING />
+        {/*<PRACTICING />*/}
+        <API />
         </div>
     )
 }
