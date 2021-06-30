@@ -4,15 +4,13 @@ const API = () => {
     const [value, setValue] = useState('posts');
     const [value2, setValue2] = useState([])
     useEffect(() => {
+    	const bringData = async () => {
+	        let data = await fetch('https://jsonplaceholder.typicode.com/' + value)
+	        let res = await data.json()
+	        setValue2(res)
+    	}
         bringData()
     }, [value2, setValue2])
-
-    const bringData = async () => {
-        let data = await fetch('https://jsonplaceholder.typicode.com/' + value)
-        let res = await data.json()
-        setValue2(res)
-    }
-
 
     return (
         <div>

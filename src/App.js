@@ -1,6 +1,7 @@
 import React from 'react';
-import PRACTICING from './PRACTICING.js'
-import API from './API'
+//import PRACTICING from './PRACTICING.js'
+//import API from './API'
+import UseRef from './components/useRef'
 
 const useSemiPersistenceStatesss = (key, initialState) => {
     const [value, setValue] = React.useState(
@@ -61,9 +62,10 @@ const App = () => {
 
             <InputWIthLabel
              id='search'
-             label='Search' 
-             onInputChange={handleSearch}
              value={searchTerm}
+             label='Search'
+             isFocused
+             onInputChange={handleSearch}
              //type='number'
             >
             <strong><SimpleTextComponent /*
@@ -77,7 +79,8 @@ const App = () => {
         {/*PRACTICING COMPONENTS*/}
         <hr />
         {/*<PRACTICING />*/}
-        <API />
+        {/*<API />*/}
+        < UseRef />
         </div>
     )
 }
@@ -85,16 +88,36 @@ const App = () => {
 
 const SimpleTextComponent = () => 'Search: ';
 
-const InputWIthLabel = ({id, label, onInputChange, value, type = 'text', children}) =>
+const InputWIthLabel = ({
+                         id,
+                         label,
+                         onInputChange,
+                         value,
+                         type = 'text',
+                         isFocused,
+                         children}) => {
+     const inputRef = React.useRef();
+
+     React.useEffect(() => {
+        if (isFocused && inputRef.current) {
+            inputRef.current.focus();
+        }
+     }, [isFocused])
+    return (
         <>
             <label htmlFor={id}><em>{children}</em> </label>
             <input
+            ref={inputRef}
             type={type}
             id={id} 
             onChange={onInputChange}
+            autoFocus={isFocused}
             value={value} />
 
         </>
+        )
+}
+        
 
 const List = ({list}) => list.map(({objectID:id, ...item}) => <Item key={id} {...item} />);
 
