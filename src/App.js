@@ -1,6 +1,6 @@
 import React from 'react';
 //import PRACTICING from './PRACTICING.js'
-//import API from './API'
+import API from './API'
 import UseRef from './components/useRef'
 
 const useSemiPersistenceStatesss = (key, initialState) => {
@@ -79,8 +79,8 @@ const App = () => {
         {/*PRACTICING COMPONENTS*/}
         <hr />
         {/*<PRACTICING />*/}
-        {/*<API />*/}
-        < UseRef />
+        {/**/}<API />
+        {/*< UseRef />*/}
         </div>
     )
 }
