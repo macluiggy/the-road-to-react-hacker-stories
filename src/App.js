@@ -88,7 +88,8 @@ const App = () => {
         </div>
     )
 }
-//
+
+//console.log(estaVaribleNoEstáDefinida)
 
 const SimpleTextComponent = () => 'Search: ';
 
