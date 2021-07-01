@@ -91,6 +91,8 @@ const App = () => {
 
 //console.log(estaVaribleNoEstáDefinida)
 //este cambio fue hecho en la rama2.1
+
+//este comentraio fue echo en la rama 3
 const SimpleTextComponent = () => 'Search: ';
 
 const InputWIthLabel = ({
