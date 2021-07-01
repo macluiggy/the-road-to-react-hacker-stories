@@ -91,6 +91,7 @@ const App = () => {
 
 //console.log(estaVaribleNoEstáDefinida)
 //comentario
+//fhfh
 const SimpleTextComponent = () => 'Search: ';
 
 const InputWIthLabel = ({
