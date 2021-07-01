@@ -3,7 +3,7 @@ import React from 'react';
 //import API from './API'
 //import UseRef from './components/useRef';
 //import Images from './components/images';
-import CharactersLeft from './components/charactersLeft';
+//import CharactersLeft from './components/charactersLeft';
 
 const useSemiPersistenceStatesss = (key, initialState) => {
     const [value, setValue] = React.useState(
