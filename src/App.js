@@ -96,7 +96,6 @@ const App = () => {
 
 //este cambio fue hecho en la rama2
 //otro comentario en la rama 2 jejeje
->>>>>>> rama2
 const SimpleTextComponent = () => 'Search: ';
 
 const InputWIthLabel = ({
