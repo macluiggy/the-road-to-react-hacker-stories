@@ -1,0 +1,19 @@
+.animate {
+	animation-name: tranlate;
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	position: relative;
+}
+@keyframes tranlate {
+	0% {
+		left: 0%;
+	}
+	50% {
+		left:  50%;
+		transform: rotate(180deg);
+	}
+	100% {
+		left:  0;
+	}
+}

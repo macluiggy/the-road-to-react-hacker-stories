@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import './images.css'
 
 const Images = () => {
 	const getRamdom = () => Math.floor(Math.random() * 5000 + 1);
@@ -6,6 +7,11 @@ const Images = () => {
 	const [url, setUrl] = useState('');
 	let ref = useRef(0);
 	let buttonRef = useRef()
+
+	let imageRef = useRef()
+	let animate = () => {
+		imageRef.current.className = 'animate';
+	}
 	useEffect(() => {
 		if (ref.current === 0) {
 			ref.current += 1;
@@ -27,8 +33,9 @@ const Images = () => {
 			<button ref={buttonRef} onClick={() => {
 				buttonRef.current.style.backgroundColor = `rgb(${255*Math.random()}, ${255}, ${255*Math.random()})`
 			}}>change my color</button>
+			<button onClick={animate}>animate</button>
 			<br />
-			<img src={url} alt="" />
+			<img src={url} alt="" className="static" ref={imageRef}/>
 		</div>
 		)
 }
