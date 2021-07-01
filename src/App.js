@@ -88,8 +88,9 @@ const App = () => {
         </div>
     )
 }
-//
 
+//console.log(estaVaribleNoEstáDefinida)
+//comentario
 const SimpleTextComponent = () => 'Search: ';
 
 const InputWIthLabel = ({
