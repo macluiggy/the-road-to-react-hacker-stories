@@ -21,6 +21,7 @@ const CharactersLeft = () => {
 		}
 		setWarning('')
 		ulRef.current.innerHTML += `<li>${text}</li>`;
+		textareaRef.current.value = ''
 	}
 	useEffect(() => {
 		setStyle({

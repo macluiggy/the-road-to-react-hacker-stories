@@ -84,7 +84,7 @@ const App = () => {
         {/*<API />*/}
         {/*< UseRef />*/}
         {/*<Images />*/}
-        <CharactersLeft />
+        {/*<CharactersLeft />*/}
         </div>
     )
 }
