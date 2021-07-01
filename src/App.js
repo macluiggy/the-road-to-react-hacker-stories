@@ -2,7 +2,8 @@ import React from 'react';
 //import PRACTICING from './PRACTICING.js'
 //import API from './API'
 //import UseRef from './components/useRef';
-import Images from './components/images';
+//import Images from './components/images';
+import CharactersLeft from './components/charactersLeft';
 
 const useSemiPersistenceStatesss = (key, initialState) => {
     const [value, setValue] = React.useState(
@@ -82,7 +83,8 @@ const App = () => {
         {/*<PRACTICING />*/}
         {/*<API />*/}
         {/*< UseRef />*/}
-        <Images />
+        {/*<Images />*/}
+        <CharactersLeft />
         </div>
     )
 }

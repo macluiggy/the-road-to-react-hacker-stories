@@ -9,8 +9,17 @@ const Images = () => {
 	let buttonRef = useRef()
 
 	let imageRef = useRef()
+	let animateButtonRef = useRef();
 	let animate = () => {
-		imageRef.current.className = 'animate';
+		imageRef.current.className = imageRef.current.className === 'animate' 
+		? 'static' : 'animate';
+		if (animateButtonRef.current.innerText === 'animate') {
+			animateButtonRef.current.innerText = 'stop';
+			animateButtonRef.current.style.backgroundColor = 'red';
+		} else {
+			animateButtonRef.current.innerText = 'animate';
+			animateButtonRef.current.style.backgroundColor = 'white';
+		}
 	}
 	useEffect(() => {
 		if (ref.current === 0) {
@@ -33,7 +42,7 @@ const Images = () => {
 			<button ref={buttonRef} onClick={() => {
 				buttonRef.current.style.backgroundColor = `rgb(${255*Math.random()}, ${255}, ${255*Math.random()})`
 			}}>change my color</button>
-			<button onClick={animate}>animate</button>
+			<button onClick={animate} ref={animateButtonRef}>animate</button>
 			<br />
 			<img src={url} alt="" className="static" ref={imageRef}/>
 		</div>
