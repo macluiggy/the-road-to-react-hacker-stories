@@ -90,6 +90,7 @@ const App = () => {
 }
 
 //console.log(estaVaribleNoEstáDefinida)
+
 //este cambio fue hecho en la rama2.1
 
 
