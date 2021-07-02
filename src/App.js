@@ -52,14 +52,20 @@ const App = () => {
     const [searchTerm, setSearchTerm] = useSemiPersistenceStatesss('search', 'React');
     const [stories, setStories] = React.useState(initialStories);
     //console.log(searchTerm)
+    const handleRemoveStory = item => {
+        const newStories = stories.filter(
+              story => item.objectID !== story.objectID
+            )
 
+        setStories(newStories);
+    }
     const handleSearch = event => {
         let v = event.target.value;
         setSearchTerm(v);
     }
 
     const searchedStories = stories.filter(story =>
-        story./*author*/title
+        story.title
             .toLowerCase()
             .includes(searchTerm.toLowerCase()));
 
@@ -81,7 +87,7 @@ const App = () => {
             </InputWIthLabel>
 
             <hr />
-            <List list={searchedStories}/>
+            <List list={searchedStories} onRemoveItem={handleRemoveStory} />
 
         {/*PRACTICING COMPONENTS*/}
         <hr />
@@ -135,17 +141,31 @@ const InputWIthLabel = ({
 }
         
 
-const List = ({list}) => list.map(({objectID:id, ...item}) => <Item key={id} {...item} />);
+const List = ({list, onRemoveItem}) => 
+    list.map(item => (
+        <Item 
+            key={item.objectID} 
+            item={item}
+            onRemoveItem={onRemoveItem} 
+        />
+        ));
 
-const Item = ({title:titulo, url, author, num_comments, points, style, }) => 
-    <div> 
-            <span>
-            <a href={url} style={style}>{titulo}</a>
-            </span>
-            <span>{author}</span>
-            <span>{num_comments}</span>
-            <span>{points}</span>
-    </div>
+
+const Item = ({ item, onRemoveItem }) => (
+  <div>
+    <span>
+      <a href={item.url}>{item.title}</a>
+    </span>
+    <span>{item.author}</span>
+    <span>{item.num_comments}</span>
+    <span>{item.points}</span>
+    <span>
+      <button type="button" onClick={() => onRemoveItem(item)}>
+        Dismiss
+      </button>
+    </span>
+  </div>
+);
 
 
 export default App;
