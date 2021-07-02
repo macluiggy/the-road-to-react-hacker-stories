@@ -27,3 +27,5 @@ const Like = () => {
 }
 
 export default Like;
+
+//comentario añadido a rama2
