@@ -4,6 +4,7 @@ import React from 'react';
 //import UseRef from './components/useRef';
 //import Images from './components/images';
 //import CharactersLeft from './components/charactersLeft';
+import Like from './components/like';
 
 const useSemiPersistenceStatesss = (key, initialState) => {
     const [value, setValue] = React.useState(
@@ -85,6 +86,7 @@ const App = () => {
         {/*< UseRef />*/}
         {/*<Images />*/}
         {/*<CharactersLeft />*/}
+        <Like />
         </div>
     )
 }
