@@ -28,4 +28,4 @@ const Like = () => {
 
 export default Like;
 
-//hecho en rama2
+//hecho en rama2 jaja
