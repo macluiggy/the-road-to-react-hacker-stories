@@ -6,23 +6,8 @@ import React from 'react';
 //import CharactersLeft from './components/charactersLeft';
 import Like from './components/like';
 
-const useSemiPersistenceStatesss = (key, initialState) => {
-    const [value, setValue] = React.useState(
-        localStorage.getItem(key) || initialState
-        )
 
-React.useEffect(() => {
-        localStorage.setItem(key, value)
-        //console.log(localStorage.getItem('identificador'))
-    }, [value, key]);
-
-    return [value, setValue]
-}
-
-
-
-const App = () => {
-    const stories = [{
+const initialStories = [{
             title: 'React',
             url: 'https://reactjs.org/',
             author: 'Jordan Walke',
@@ -46,7 +31,26 @@ const App = () => {
         },
     ];
 
+const useSemiPersistenceStatesss = (key, initialState) => {
+    const [value, setValue] = React.useState(
+        localStorage.getItem(key) || initialState
+        )
+
+React.useEffect(() => {
+        localStorage.setItem(key, value)
+        //console.log(localStorage.getItem('identificador'))
+    }, [value, key]);
+
+    return [value, setValue]
+}
+
+
+
+const App = () => {
+    
+
     const [searchTerm, setSearchTerm] = useSemiPersistenceStatesss('search', 'React');
+    const [stories, setStories] = React.useState(initialStories);
     //console.log(searchTerm)
 
     const handleSearch = event => {
@@ -86,7 +90,7 @@ const App = () => {
         {/*< UseRef />*/}
         {/*<Images />*/}
         {/*<CharactersLeft />*/}
-        <Like />
+        {/*<Like />*/}
         </div>
     )
 }
