@@ -28,6 +28,4 @@ const Like = () => {
 
 export default Like;
 
-
 //hecho en main
-

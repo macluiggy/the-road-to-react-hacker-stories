@@ -28,6 +28,8 @@ const Like = () => {
 
 export default Like;
 
-
+<<<<<<< HEAD
 //hecho en main
-
+=======
+//hecho en rama2
+>>>>>>> rama2
