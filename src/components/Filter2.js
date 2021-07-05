@@ -33,7 +33,7 @@ const Filter2 = () => {
 	const changeCatergory = (e) => {
 		setCurrentCategory(e.target.value);
 		p(e.target.value)
-		p('thriller comedy terror'.includes(e.target.value))
+		//p('thriller comedy terror'.includes(e.target.value))
 	}
 
 	useEffect(() => {
@@ -90,3 +90,4 @@ const Input = ({id, type='button', value='button', changeAge, children, inputRef
 	</>
 
 export default Filter2;
+//comment in rama4
