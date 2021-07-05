@@ -26,7 +26,7 @@ const Filter = () => {
 		p(inputRef.current.value)
 	}
 	useEffect(() => {
-		let filteredMovies = movies.filter(({age, id, movie}) => minAge <= age);
+		let filteredMovies = moviesArr.filter(({age, id, movie}) => minAge <= age);
 		setMovies(filteredMovies)
 		p('se cambio la edad')
 
@@ -57,7 +57,7 @@ const Input = ({id, type='button', value='button', changeAge, children, inputRef
 		<input 
 		type={type} 
 		id={id}
-		onInput={changeAge}
+		onChange={changeAge}
 		ref={inputRef}
 		value={minAge} >
 		

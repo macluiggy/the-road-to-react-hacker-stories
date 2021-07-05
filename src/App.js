@@ -5,7 +5,8 @@ import React from 'react';
 //import Images from './components/images';
 //import CharactersLeft from './components/charactersLeft';
 //import Like from './components/like';
-import Filter from './components/Filter'
+//import Filter from './components/Filter'
+import Filter2 from './components/Filter2'
 
 
 const initialStories = [{
@@ -110,7 +111,8 @@ const App = () => {
         {/*<Images />*/}
         {/*<CharactersLeft />*/}
         {/*<Like />*/}
-        <Filter />
+        {/*<Filter />*/}
+        <Filter2 />
         </div>
     )
 }
