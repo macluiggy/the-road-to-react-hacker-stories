@@ -33,7 +33,7 @@ const Filter2 = () => {
 	const changeCatergory = (e) => {
 		setCurrentCategory(e.target.value);
 		p(e.target.value)
-		p('thriller comedy terror'.includes(e.target.value))
+		//p('thriller comedy terror'.includes(e.target.value))
 	}
 
 	useEffect(() => {
