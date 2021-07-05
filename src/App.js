@@ -4,7 +4,8 @@ import React from 'react';
 //import UseRef from './components/useRef';
 //import Images from './components/images';
 //import CharactersLeft from './components/charactersLeft';
-import Like from './components/like';
+//import Like from './components/like';
+import Filter from './components/Filter'
 
 
 const initialStories = [{
@@ -47,15 +48,13 @@ const useSemiPersistenceStatesss = (key, initialState) => {
 React.useEffect(() => {
         localStorage.setItem(key, value)
         //console.log(localStorage.getItem('identificador'))
+
     }, [value, key]);
 
     return [value, setValue]
 }
 
-
-
 const App = () => {
-    
 
     const [searchTerm, setSearchTerm] = useSemiPersistenceStatesss('search', 'React');
     const [stories, setStories] = React.useState([]);
@@ -111,14 +110,13 @@ const App = () => {
         {/*<Images />*/}
         {/*<CharactersLeft />*/}
         {/*<Like />*/}
+        <Filter />
         </div>
     )
 }
 
 //console.log(estaVaribleNoEstáDefinida)
-
 //este cambio fue hecho en la rama2.1
-
 
 //este cambio fue hecho en la rama2
 //otro comentario en la rama 2 jejeje
