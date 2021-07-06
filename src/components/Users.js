@@ -59,15 +59,3 @@ const genres = (genre) => ({
 export default Users;
 
 
-
-//C3
-
-
-
-
-
-//C9
-//C10
-
-//C12
-//C13
