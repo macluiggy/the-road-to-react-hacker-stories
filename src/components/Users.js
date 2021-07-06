@@ -10,6 +10,8 @@ function Users() {
     <div>
       <h1>Hello Conditional Rendering</h1>
       <List list={users} />
+
+      <Genre likeMan={true} likeWomen={true} />
     </div>
   );
 }
@@ -39,4 +41,22 @@ function Item({ item }) {
   );
 }
 
+function Genre({likeMan, likeWomen}) {
+  const key = `${likeMan}-${likeWomen}`;
+
+  return (
+    <div>
+      {
+        genres(key)
+      }
+    </div>
+    )
+}
+
+const genres = (genre) => ({
+          'true-true': <p>bisexual</p>,
+          'true-false': <p>heterosexual</p>,
+          'false-true': <p>heterosexual</p>,
+          'false-false': <p>asexual</p>,
+        }[genre])
 export default Users;
