@@ -32,7 +32,7 @@ const Filter = () => {
 
 		filteredMovies = []
 		return filteredMovies
-	}, [minAge, setMinAge])
+	}, [minAge, setMinAge, movies])
 	return (
 		<div>
 			<Input

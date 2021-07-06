@@ -17,26 +17,23 @@ function Users() {
 }
  
 function List({ list }) {
-  if (!list) {
-    return null;
-  }
- 
-  if (!list.length) {
-    return <p>Sorry, the list is empty.</p>;
-  } 
+  const isNotAvailable = !list;
+  const isEmpty = !list.length;
   return (
       <div>
-        {list.map(item => (
-          <Item item={item} />
-        ))}
+        {isNotAvailable
+          ? <p>Sorry, the list is not there</p>
+          : (isEmpty 
+            ? <p>Sorry,the list is empty.</p>
+            : <div>{list.map(({id, ...item}) => <Item key={id} {...item} />)}</div>)}
       </div>
     );
 }
  
-function Item({ item }) {
+function Item({ id, firstName, lastName }) {
   return (
     <li>
-      {item.firstName} {item.lastName}
+      {firstName} {lastName}
     </li>
   );
 }
