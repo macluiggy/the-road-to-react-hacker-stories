@@ -212,5 +212,3 @@ const Item = ({ item, onRemoveItem }) => (
 
 
 export default App;
-
-//comentario añadido en main
