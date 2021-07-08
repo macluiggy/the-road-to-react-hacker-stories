@@ -33,7 +33,18 @@ const initialStories = [{
             }
         },
     ];
-
+const storiesReducer = (state, action) => {
+    switch (action.type) {
+        case 'SET_STORIES':
+            return action.payload;
+        case 'REMOVE_STORIES':
+            return state.filter(
+                    story => action.payload.objectID !== story.objectID
+                );
+        default:
+            throw new Error();
+    }
+}
 const getAsyncStories = () =>
     new Promise(resolve =>
             setTimeout(
@@ -47,37 +58,42 @@ const useSemiPersistenceStatesss = (key, initialState) => {
         localStorage.getItem(key) || initialState
         )
 
-React.useEffect(() => {
-        localStorage.setItem(key, value)
-        //console.log(localStorage.getItem('identificador'))
+    React.useEffect(() => {
+            localStorage.setItem(key, value)
+            //console.log(localStorage.getItem('identificador'))
 
-    }, [value, key]);
+        }, [value, key]);
 
-    return [value, setValue]
+        return [value, setValue]
 }
 
 const App = () => {
 
     const [searchTerm, setSearchTerm] = useSemiPersistenceStatesss('search', 'React');
-    const [stories, setStories] = React.useState([]);
+    const [stories, dispatchStories] = React.useReducer(
+            storiesReducer, 
+            []
+        );
     const [isLoading, setIsLoading] = React.useState(false);
     const [isError, setIsError] = React.useState(false);
 
     React.useEffect(() => {
         setIsLoading(true);
         getAsyncStories().then(result => {
-            setStories(result.data.stories);
+            dispatchStories({
+                type: 'SET_STORIES',
+                payload: result.data.stories,
+            });
             setIsLoading(false);
         })
         .catch(() => setIsError(true));
     }, [])
     //console.log(searchTerm)
     const handleRemoveStory = item => {
-        const newStories = stories.filter(
-              story => item.objectID !== story.objectID
-            )
-
-        setStories(newStories);
+        dispatchStories({
+            type: 'REMOVE_STORIES',
+            payload: item,
+        });
     }
     const handleSearch = event => {
         let v = event.target.value;
@@ -92,7 +108,6 @@ const App = () => {
     return (
         <div>
             <h1>My Hacker Stories</h1>
-
             <InputWIthLabel
              id='search'
              value={searchTerm}
