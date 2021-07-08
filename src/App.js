@@ -33,7 +33,13 @@ const initialStories = [{
             }
         },
     ];
-
+const storiesReducer = (state, action) => {
+    if (action.type === 'SET_STORIES') {
+        return action.payload;
+    } else {
+        throw new Error();
+    }
+}
 const getAsyncStories = () =>
     new Promise(resolve =>
             setTimeout(
@@ -47,19 +53,22 @@ const useSemiPersistenceStatesss = (key, initialState) => {
         localStorage.getItem(key) || initialState
         )
 
-React.useEffect(() => {
-        localStorage.setItem(key, value)
-        //console.log(localStorage.getItem('identificador'))
+    React.useEffect(() => {
+            localStorage.setItem(key, value)
+            //console.log(localStorage.getItem('identificador'))
 
-    }, [value, key]);
+        }, [value, key]);
 
-    return [value, setValue]
+        return [value, setValue]
 }
 
 const App = () => {
 
     const [searchTerm, setSearchTerm] = useSemiPersistenceStatesss('search', 'React');
-    const [stories, setStories] = React.useState([]);
+    const [stories, dispatchStories] = React.useReducer(
+            storiesReducer, 
+            []
+        );
     const [isLoading, setIsLoading] = React.useState(false);
     const [isError, setIsError] = React.useState(false);
 
@@ -92,7 +101,6 @@ const App = () => {
     return (
         <div>
             <h1>My Hacker Stories</h1>
-
             <InputWIthLabel
              id='search'
              value={searchTerm}
