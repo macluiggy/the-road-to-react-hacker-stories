@@ -34,10 +34,15 @@ const initialStories = [{
         },
     ];
 const storiesReducer = (state, action) => {
-    if (action.type === 'SET_STORIES') {
-        return action.payload;
-    } else {
-        throw new Error();
+    switch (action.type) {
+        case 'SET_STORIES':
+            return action.payload;
+        case 'REMOVE_STORIES':
+            return state.filter(
+                    story => action.payload.objectID !== story.objectID
+                );
+        default:
+            throw new Error();
     }
 }
 const getAsyncStories = () =>
@@ -85,13 +90,9 @@ const App = () => {
     }, [])
     //console.log(searchTerm)
     const handleRemoveStory = item => {
-        const newStories = stories.filter(
-              story => item.objectID !== story.objectID
-            )
-
         dispatchStories({
-            type: 'SET_STORIES',
-            payload: newStories,
+            type: 'REMOVE_STORIES',
+            payload: item,
         });
     }
     const handleSearch = event => {
