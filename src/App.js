@@ -8,6 +8,7 @@ import React from 'react';
 //import Filter from './components/Filter'
 //import Filter2 from './components/Filter2'
 //import Users from './components/Users.js'
+import UseReducer from './components/UseReducer';
 
 const initialStories = [{
             title: 'React',
@@ -141,6 +142,7 @@ const App = () => {
         {/*<Filter />*/}
         {/*<Filter2 />*/}
         {/*<Users />*/}
+        <UseReducer />
         </div>
     )
 }
