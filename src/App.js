@@ -7,8 +7,7 @@ import React from 'react';
 //import Like from './components/like';
 //import Filter from './components/Filter'
 //import Filter2 from './components/Filter2'
-import Users from './components/Users.js'
-
+//import Users from './components/Users.js'
 
 const initialStories = [{
             title: 'React',
@@ -141,7 +140,7 @@ const App = () => {
         {/*<Like />*/}
         {/*<Filter />*/}
         {/*<Filter2 />*/}
-        <Users />
+        {/*<Users />*/}
         </div>
     )
 }
