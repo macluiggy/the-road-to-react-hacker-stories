@@ -30,7 +30,7 @@ function reducer(state, action) {
       throw new Error();
   }
 }
-console.log(0%2)
+
 function Counter() {
   const [state, dispatch] = useReducer(reducer, {count: 0, negative: false, isPar: true});
   return (
