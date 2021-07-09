@@ -1,13 +1,73 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 const UseReducer2 = () => {
 	return (
 		<div>
-			<Counter />
+			{/*<Counter />*/}
+      <FetchData />
 		</div>
 		)
 }
 
+const initialState = {
+  isLoading: true,
+  error: '',
+  post: {}
+}
+
+const reducer2 = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_SUCCESS':
+      return {
+        ...state,
+        isLoading: false,
+        post: action.payload
+      }
+    case 'FETCH_FAILED':
+      return {
+        ...state,
+        isLoading: false,
+        error: '404 error',
+        post: undefined,
+      }
+    default:
+      return state;
+  }
+}
+console.log(!!{})
+const FetchData = () => {
+  const [state, dispatch] = useReducer(reducer2, initialState);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(json => {
+        dispatch({
+          type: 'FETCH_SUCCESS',
+          payload: json,
+        })
+      })
+      .catch(error => {
+        dispatch({
+          type: 'FETCH_FAILED',
+        })
+      })
+  }, [])
+  return (
+    <div>
+      {state.isLoading 
+        ? 'loading'
+        : !state.post
+        ? '404 something went wrong'
+        : (
+          <ul>
+            {state.post.map(({id, name, username}) => <li key={id}>{username} - {name}</li>)}
+          </ul>
+          )}
+    </div>
+    )
+}
+
+// FIRST COMPONENT USED
 //const initialState = {count: 0};
 
 function reducer(state, action) {
