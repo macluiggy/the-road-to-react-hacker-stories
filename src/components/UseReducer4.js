@@ -73,6 +73,6 @@ const UseReducer4 = () => {
 }
 
 const Users = ({id, username, name}) => {
-	return <li> {username} - {name} </li>
+	return <li key={id}> {username} - {name} </li>
 }
 export default UseReducer4
