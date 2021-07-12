@@ -1,9 +1,12 @@
 import React, { useReducer } from 'react';
+const getRamdomNumber = (arr) => {
+	return Math.floor(Math.random() * 10 + 1)
+}
 
 const getRamdomNumbers = () => {
 	let arr = [];
 	for (let i=0; i < 10; i++) {
-		arr.push(Math.floor(Math.random() * 10 + 1))
+		arr.push(getRamdomNumber(arr))
 	}
 	return arr
 }

@@ -10,7 +10,8 @@ import React from 'react';
 //import Users from './components/Users.js'
 //import UseReducer from './components/UseReducer';
 //import UseReducer2 from './components/UseReducer2';
-import UseReducer3 from './components/UseReducer3'
+//import UseReducer3 from './components/UseReducer3';
+import UseReducer4 from './components/UseReducer4';
 
 
 
@@ -148,7 +149,8 @@ const App = () => {
         {/*<Users />*/}
         {/*<UseReducer />*/}
         {/*<UseReducer2 />*/}
-        <UseReducer3 />
+        {/*<UseReducer3 />*/}
+        <UseReducer4 />
         </div>
     )
 }
