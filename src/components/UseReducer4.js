@@ -8,11 +8,14 @@ const reducer = (state, action) => {
 				users: action.payload,
 			}
 		case 'FAILED':
-			return undefined
+			return {
+				...state,
+				users: undefined,
+			}
 		case 'FILTER':
 			return {
-				users : action.initialUsers.filter(user =>
-					user.name.toLowerCase().includes(action.inputValue.toLowerCase()))
+				users : action.initialUsers.filter(({name, username}) =>
+					`${username} ${name}`.toLowerCase().includes(action.inputValue.toLowerCase()))
 			}
 		default:
 			return state
@@ -23,7 +26,7 @@ const initialState = {
 	isLoading: true,
 	users: []
 }
-let initialU = []
+let initialUsers = []
 
 const UseReducer4 = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
@@ -32,7 +35,7 @@ const UseReducer4 = () => {
 	dispatch({
 		type: 'FILTER',
 		inputValue: e.target.value,
-		initialUsers: initialU,
+		initialUsers: initialUsers,
 	})
 }
 	useEffect(() => {
@@ -43,24 +46,33 @@ const UseReducer4 = () => {
 					type: 'SUCCESS',
 					payload: json,
 				})
+				return json
+			})
+			.then(initial => {
+				initialUsers = initial
 			})
 			.catch(() => dispatch({
 				type: 'FAILED',
 			}))
-		initialU = state.users.map(user => user)
 	}, [])
 	return (
 		<div>
-		<input type="text" onInput={filter} />
+		<label htmlFor="search">Search user:</label>
+		<br />
+		<input  type="text" onInput={filter} />
+		<br />
 		{state.isLoading
 			? 'Loading'
 			: !state.users
 			? 'Something went wrong'
 			: state.users.map(
-					({id, name, username}) => <li key={id}> {username} - {name} </li>
+					({id, ...items}) => <Users key={id} {...items} />
 				)}
 		</div>
 		)
 }
 
+const Users = ({id, username, name}) => {
+	return <li> {username} - {name} </li>
+}
 export default UseReducer4

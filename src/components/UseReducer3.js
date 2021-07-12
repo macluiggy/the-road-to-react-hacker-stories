@@ -14,12 +14,13 @@ const getRamdomNumbers = () => {
 const initialState = getRamdomNumbers()
 
 const reducer = (state, action) => {
-	console.log('jdjdjd')
 	switch (action.type){
 		case 'ORDER':
-			return [...state]. sort((a, b) => a - b)
+			return [...state].sort((a, b) => a - b)
 		case 'GET_RANDOM_NUMBERS':
 			return getRamdomNumbers()
+		default:
+			return state
 	}
 }
 
