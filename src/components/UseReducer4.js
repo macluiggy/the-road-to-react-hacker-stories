@@ -17,6 +17,14 @@ const reducer = (state, action) => {
 				users : action.initialUsers.filter(({name, username}) =>
 					`${username} ${name}`.toLowerCase().includes(action.inputValue.toLowerCase()))
 			}
+		case 'SORT':
+			return {
+				...state,
+				sorted: true,
+				users: action.initialUsers.map(({name, username, id}) => {
+					return `${username} - ${name}`
+				}).sort()
+			}
 		default:
 			return state
 	}
@@ -61,10 +69,13 @@ const UseReducer4 = () => {
 		<br />
 		<input  type="text" onInput={filter} />
 		<br />
+		<button onClick={() => dispatch({type: 'SORT', initialUsers: initialUsers})} >Sort</button>
 		{state.isLoading
 			? 'Loading'
 			: !state.users
 			? 'Something went wrong'
+			: state.sorted
+			? state.users.map((user, i) => <li key={`user${i}`}>{user}</li>)
 			: state.users.map(
 					({id, ...items}) => <Users key={id} {...items} />
 				)}
