@@ -12,6 +12,7 @@ import React from 'react';
 //import UseReducer2 from './components/UseReducer2';
 //import UseReducer3 from './components/UseReducer3';
 //import UseReducer4 from './components/UseReducer4';
+import UseCallback from './components/UseCallback'
 
 
 
@@ -153,6 +154,8 @@ const App = () => {
             se pueden pasar componentes en los React childrens
             *//></strong>
             </InputWIthLabel>
+
+            <UseCallback />
 
             <hr />
 
