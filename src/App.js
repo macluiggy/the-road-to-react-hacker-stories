@@ -11,7 +11,7 @@ import React from 'react';
 //import UseReducer from './components/UseReducer';
 //import UseReducer2 from './components/UseReducer2';
 //import UseReducer3 from './components/UseReducer3';
-import UseReducer4 from './components/UseReducer4';
+//import UseReducer4 from './components/UseReducer4';
 
 
 
@@ -98,10 +98,13 @@ const App = () => {
     //const [isLoading, setIsLoading] = React.useState(false);
     //const [isError, setIsError] = React.useState(false);
 
-    React.useEffect(() => {
+    const handleFetchStories = React.useCallback(() => {
+        if (!searchTerm) return;
+
         dispatchStories({ type: 'STORIES_FETCH_INIT' });
+
         /*getAsyncStories()*/
-        fetch(`${API_ENDPOINT}react`)
+        fetch(`${API_ENDPOINT}${searchTerm}`)
             .then(response => response.json())
             .then(result => {
                 dispatchStories({
@@ -112,8 +115,13 @@ const App = () => {
             .catch(() => 
                   dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
                 );
-    }, [])
+    }, [searchTerm])
     //console.log(searchTerm)
+
+    React.useEffect(() => {
+        handleFetchStories();
+    }, [handleFetchStories])
+    
     const handleRemoveStory = item => {
         dispatchStories({
             type: 'REMOVE_STORIES',
@@ -125,10 +133,10 @@ const App = () => {
         setSearchTerm(v);
     }
 
-    const searchedStories = stories.data.filter(story =>
+/*    const searchedStories = stories.data.filter(story =>
         story.title
             .toLowerCase()
-            .includes(searchTerm.toLowerCase()));
+            .includes(searchTerm.toLowerCase()))*/;
 
     return (
         <div>
@@ -153,7 +161,7 @@ const App = () => {
             {stories.isLoading ? (
                 <p>Loading...</p>
                 ) : (
-                <List list={searchedStories} onRemoveItem={handleRemoveStory} />
+                <List list={stories.data} onRemoveItem={handleRemoveStory} />
                 )}
 
         {/*PRACTICING COMPONENTS*/}
