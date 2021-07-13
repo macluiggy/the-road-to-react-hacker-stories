@@ -167,7 +167,7 @@ const App = () => {
         {/*<UseReducer />*/}
         {/*<UseReducer2 />*/}
         {/*<UseReducer3 />*/}
-        <UseReducer4 />
+        {/*<UseReducer4 />*/}
         </div>
     )
 }
