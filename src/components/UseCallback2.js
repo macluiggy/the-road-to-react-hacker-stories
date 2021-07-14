@@ -11,7 +11,8 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				isLoading: false,
-				data: state.payload,
+				data: action.payload,
+				msg: false,
 			}
 		case 'FETCH_FAILED':
 			return {
@@ -22,33 +23,44 @@ const reducer = (state, action) => {
 		case 'SET_COMMENTS':
 			return {
 				...state,
-				path: state.payload
+				path: 'comments',
+				cc: !state.cc,
 			}
 		case 'SET_POSTS':
 			return {
 				...state,
-				path: state.payload,
+				path: 'posts',
+				cp: !state.cp,
 			}
+		default:
+			return state;
 	}
 }
 
 const initialState = {
 	isLoading: false,
-	data: undefined,
+	data: [],
 	error: '',
 	path: '',
 	msg: 'Click a button'
 }
 const UseCallback2 = () => {
 	const [state, dispatch] = useReducer(reducer, initialState)
-	const {isLoading, data, error, path, msg} = state
+	const {isLoading, data, error, path, msg, cc, cp} = state
 
 	useEffect(() => {
 		if (!path) return
-		dispatch({type: 'FETCH_INIT'})
-		fetch(`https://jsonplaceholder.typicode.com/${path}`)
-			.then(response => response.json())
+		//console.log(`useEffect rendered`)
+		let url = `https://jsonplaceholder.typicode.com/${path}`
+		fetch(url)
+			.then(response => {
+				dispatch({
+					type: 'FETCH_INIT',
+				})
+				return response.json()
+			})
 			.then(json => {
+				//console.log(url)
 				dispatch({
 					type: 'FETCH_SUCCESS',
 					payload: json,
@@ -61,32 +73,37 @@ const UseCallback2 = () => {
 			})
 	}, [path])
 
-	const setComments = e => {
-		console.log(`setting comments`)
+	const setComments = useCallback(() => {
+		console.log(`setComments rendered`)
 		dispatch({
 			type: 'SET_COMMENTS',
-			payload: e.target.value
 		})
-	}
+	}, [cc])
 
-	const setPosts = e => {
-		console.log(`setting posts`)
+	const setPosts = useCallback(() => {
+		console.log(`setPosts rendered`)
 		dispatch({
 			type: 'SET_POSTS',
-			payload: e.target.value,
 		})
-	}
+	}, [cp])
+
+	//console.log(`${path}`)
+	//console.log(data)
 	return (
 		<div>
-			<button onClick={setComments} >comments</button>
-			<button onClick={setPosts} >posts</button>
+			<Button setPath={setComments} >comments</Button>
+			<Button setPath={setPosts} >posts</Button>
 			{isLoading
 				? 'Loading'
-				: !data
-				? error || msg
 				: data.map(({id, body}) => <li key={id} >{body}</li>)}
 		</div>
 		)
 }
 
+const Button = memo(({setPath, children}) => {
+	console.log(`${children} rendered`)
+	return (
+		<button onClick={setPath} >{children}</button>
+		)
+})
 export default UseCallback2
