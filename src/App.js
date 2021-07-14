@@ -97,16 +97,19 @@ const App = () => {
             storiesReducer, 
             {data: [], isLoading: false, isError: false}
         );
+    const [url, setUrl] = React.useState(
+            `${API_ENDPOINT}${searchTerm}`
+        )
     //const [isLoading, setIsLoading] = React.useState(false);
     //const [isError, setIsError] = React.useState(false);
 
     const handleFetchStories = React.useCallback(() => {
-        if (!searchTerm) return;
+        //if (!searchTerm) return;
 
         dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
         /*getAsyncStories()*/
-        fetch(`${API_ENDPOINT}${searchTerm}`)
+        fetch(url)
             .then(response => response.json())
             .then(result => {
                 dispatchStories({
@@ -117,7 +120,7 @@ const App = () => {
             .catch(() => 
                   dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
                 );
-    }, [searchTerm])
+    }, [url])
     //console.log(searchTerm)
 
     React.useEffect(() => {
@@ -135,6 +138,14 @@ const App = () => {
         setSearchTerm(v);
     }
 
+    const handleSearchInput = event => {
+        setSearchTerm(event.target.value);
+    }
+
+    const handleSearchSubmit = () => {
+        setUrl(`${API_ENDPOINT}${searchTerm}`)
+    }
+
 /*    const searchedStories = stories.data.filter(story =>
         story.title
             .toLowerCase()
@@ -148,7 +159,7 @@ const App = () => {
              value={searchTerm}
              label='Search'
              isFocused
-             onInputChange={handleSearch}
+             onInputChange={handleSearchInput}
              //type='number'
             >
             <strong><SimpleTextComponent /*
@@ -156,8 +167,18 @@ const App = () => {
             *//></strong>
             </InputWIthLabel>
 
-            {/*<UseCallback />*/}
+            <button
+            type="button"
+            disabled={!searchTerm}
+            onClick={handleSearchSubmit} >
+                Submit
+            </button>
+
+            {/*
+            <UseCallback />
             <UseCallback2 />
+            */}
+            
 
             <hr />
 

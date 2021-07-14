@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, memo, useCallback} from 'react';
+import { useReducer, useEffect, memo, useCallback} from 'react';
 
 const reducer = (state, action) => {
 	switch (action.type) {
@@ -50,6 +50,10 @@ const UseCallback2 = () => {
 
 	useEffect(() => {
 		if (!path) return
+		handleFetch()
+	} , [path])
+
+	const handleFetch = useCallback(() => {
 		//console.log(`useEffect rendered`)
 		let url = `https://jsonplaceholder.typicode.com/${path}`
 		fetch(url)
@@ -71,8 +75,7 @@ const UseCallback2 = () => {
 					type: 'FETCH_FAILED',
 				})
 			})
-	}, [path])
-
+	}, [state])
 	const setComments = useCallback(() => {
 		console.log(`setComments rendered`)
 		dispatch({
