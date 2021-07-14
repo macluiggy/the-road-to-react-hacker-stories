@@ -40,7 +40,7 @@ const Encabezado = React.memo(() => {
 	);
 })
 
-const ComponenteHijo = React.memo(({texto, cuenta, sumarUno}) => {
+const ComponenteHijo = memo(({texto, cuenta, sumarUno}) => {
 	console.log(`${texto} renderizado`)
 	return (
 		<div className="caja">
