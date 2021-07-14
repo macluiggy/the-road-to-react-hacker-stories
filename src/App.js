@@ -13,8 +13,8 @@ import axios from 'axios';
 //import UseReducer2 from './components/UseReducer2';
 //import UseReducer3 from './components/UseReducer3';
 //import UseReducer4 from './components/UseReducer4';
-//import UseCallback from './components/UseCallback'
-import UseCallback2 from './components/UseCallback2'
+import UseCallback from './components/UseCallback'
+//import UseCallback2 from './components/UseCallback2'
 
 
 
@@ -110,7 +110,7 @@ const App = () => {
         dispatchStories({ type: 'STORIES_FETCH_INIT' });
 
         /*getAsyncStories()*/
-        fetch(url)
+        /*fetch(url)
             .then(response => response.json())
             .then(result => {
                 dispatchStories({
@@ -120,7 +120,18 @@ const App = () => {
             })
             .catch(() => 
                   dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
-                );
+                );*/
+        axios
+            .get(url)
+            .then(result => {
+                dispatchStories({
+                    type: 'STORIES_FETCH_SUCCESS',
+                    payload: result.data.hits
+                })
+            })
+            .catch(() => {
+                dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
+            })
     }, [url])
     //console.log(searchTerm)
 
@@ -176,9 +187,9 @@ const App = () => {
             </button>
 
             {/*
-            <UseCallback />
+            
             <UseCallback2 />
-            */}
+            */}<UseCallback />
             
 
             <hr />
