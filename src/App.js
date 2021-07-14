@@ -12,7 +12,8 @@ import React from 'react';
 //import UseReducer2 from './components/UseReducer2';
 //import UseReducer3 from './components/UseReducer3';
 //import UseReducer4 from './components/UseReducer4';
-import UseCallback from './components/UseCallback'
+//import UseCallback from './components/UseCallback'
+import UseCallback2 from './components/UseCallback2'
 
 
 
@@ -155,7 +156,8 @@ const App = () => {
             *//></strong>
             </InputWIthLabel>
 
-            <UseCallback />
+            {/*<UseCallback />*/}
+            <UseCallback2 />
 
             <hr />
 
