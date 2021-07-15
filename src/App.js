@@ -187,9 +187,9 @@ const App = () => {
             </button>
 
             {/*
-            
+            <UseCallback />
             <UseCallback2 />
-            */}<UseCallback />
+            */}
             
 
             <hr />
