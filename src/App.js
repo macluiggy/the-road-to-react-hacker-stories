@@ -13,8 +13,9 @@ import axios from 'axios';
 //import UseReducer2 from './components/UseReducer2';
 //import UseReducer3 from './components/UseReducer3';
 //import UseReducer4 from './components/UseReducer4';
-import UseCallback from './components/UseCallback'
+//import UseCallback from './components/UseCallback'
 //import UseCallback2 from './components/UseCallback2'
+import AsyncAwait from './components/AsyncAwait'
 
 
 
@@ -104,7 +105,7 @@ const App = () => {
     //const [isLoading, setIsLoading] = React.useState(false);
     //const [isError, setIsError] = React.useState(false);
 
-    const handleFetchStories = React.useCallback(() => {
+    const handleFetchStories = React.useCallback( async () => {
         //if (!searchTerm) return;
 
         dispatchStories({ type: 'STORIES_FETCH_INIT' });
@@ -121,7 +122,7 @@ const App = () => {
             .catch(() => 
                   dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
                 );*/
-        axios
+        /*axios
             .get(url)
             .then(result => {
                 dispatchStories({
@@ -131,7 +132,17 @@ const App = () => {
             })
             .catch(() => {
                 dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
-            })
+            })*/
+            try {
+                const result = await axios.get(url);
+
+                dispatchStories({
+                    type: 'STORIES_FETCH_SUCCESS',
+                    payload: result.data.hits,
+                })
+            } catch {
+                dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
+            }
     }, [url])
     //console.log(searchTerm)
 
@@ -190,6 +201,7 @@ const App = () => {
             <UseCallback />
             <UseCallback2 />
             */}
+            <AsyncAwait />
             
 
             <hr />
