@@ -156,10 +156,10 @@ const App = () => {
             payload: item,
         });
     }
-    const handleSearch = event => {
+    /*const handleSearch = event => {
         let v = event.target.value;
         setSearchTerm(v);
-    }
+    }*/
 
     const handleSearchInput = event => {
         setSearchTerm(event.target.value);
