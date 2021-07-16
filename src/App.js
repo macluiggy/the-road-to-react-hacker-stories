@@ -203,7 +203,7 @@ const App = () => {
                 ) : (
                 <List list={stories.data} onRemoveItem={handleRemoveStory} />
                 )}
-//hhdhdhhdhdm
+
         {/*PRACTICING COMPONENTS*/}
         <hr />
         {/*<PRACTICING />*/}
@@ -245,7 +245,7 @@ const SearchForm = ({
     )
 const SimpleTextComponent = () => 'Search: ';
 
-const InputWithLabel = ({
+/*const InputWithLabel = ({
                          id,
                          label,
                          onInputChange,
@@ -273,6 +273,30 @@ const InputWithLabel = ({
 
         </>
         )
+}*/
+
+class InputWithLabel extends React.Component {
+    render() {
+        const {
+            id,
+            value,
+            type = 'text',
+            onInputChange,
+            children,
+        } = this.props;
+
+        return (
+            <>
+                <label htmlFor={id}><em>{children}</em> </label>
+                <input
+                type={type}
+                id={id} 
+                onChange={onInputChange}
+                value={value} />
+
+            </>
+            )
+    }
 }
         
 
