@@ -203,7 +203,7 @@ const App = () => {
                 ) : (
                 <List list={stories.data} onRemoveItem={handleRemoveStory} />
                 )}
-
+//hhdhdhhdhdm
         {/*PRACTICING COMPONENTS*/}
         <hr />
         {/*<PRACTICING />*/}
