@@ -15,7 +15,7 @@ import axios from 'axios';
 //import UseReducer4 from './components/UseReducer4';
 //import UseCallback from './components/UseCallback'
 //import UseCallback2 from './components/UseCallback2'
-import AsyncAwait from './components/AsyncAwait'
+//import AsyncAwait from './components/AsyncAwait'
 
 
 
@@ -165,10 +165,12 @@ const App = () => {
         setSearchTerm(event.target.value);
     }
 
-    const handleSearchSubmit = () => {
+    const handleSearchSubmit = event => {
         setUrl(`${API_ENDPOINT}${searchTerm}`)
-    }
 
+        event.preventDefault()
+    }
+//
 /*    const searchedStories = stories.data.filter(story =>
         story.title
             .toLowerCase()
@@ -177,32 +179,15 @@ const App = () => {
     return (
         <div>
             <h1>My Hacker Stories</h1>
-            <InputWIthLabel
-             id='search'
-             value={searchTerm}
-             label='Search'
-             isFocused
-             onInputChange={handleSearchInput}
-             //type='number'
-            >
-            <strong><SimpleTextComponent /*
-            se pueden pasar componentes en los React childrens
-            *//></strong>
-            </InputWIthLabel>
-
-            <button
-            type="button"
-            disabled={!searchTerm}
-            onClick={handleSearchSubmit} >
-                Submit
-            </button>
-
+            <SearchForm
+             searchTerm={searchTerm} 
+             onSearchInput={handleSearchInput}
+             onSearchSubmit={handleSearchSubmit} />
             {/*
             <UseCallback />
             <UseCallback2 />
-            */}
             <AsyncAwait />
-            
+            */}
 
             <hr />
 
@@ -235,6 +220,30 @@ const App = () => {
 
 //console.log(estaVaribleNoEstáDefinida)
 
+const SearchForm = ({
+    searchTerm,
+    onSearchSubmit,
+    onSearchInput,
+}) => (
+            <form onSubmit={onSearchSubmit} >
+                <InputWIthLabel
+                 id='search'
+                 value={searchTerm}
+                 label='Search'
+                 isFocused
+                 onInputChange={onSearchInput}
+                 //type='number'
+                >
+                <strong><SimpleTextComponent /*
+                se pueden pasar componentes en los React childrens
+                *//></strong>
+                </InputWIthLabel>
+
+                <button type="submit" disabled={!searchTerm}>
+                    Submit
+                </button>
+            </form>
+    )
 const SimpleTextComponent = () => 'Search: ';
 
 const InputWIthLabel = ({
@@ -279,19 +288,19 @@ const List = ({list, onRemoveItem}) =>
 
 
 const Item = ({ item, onRemoveItem }) => (
-  <div>
-    <span>
-      <a href={item.url}>{item.title}</a>
-    </span>
-    <span>{item.author}</span>
-    <span>{item.num_comments}</span>
-    <span>{item.points}</span>
-    <span>
-      <button type="button" onClick={() => onRemoveItem(item)}>
-        Dismiss
-      </button>
-    </span>
-  </div>
+    <div>
+        <span>
+          <a href={item.url}>{item.title}</a>
+        </span>
+        <span>{item.author}</span>
+        <span>{item.num_comments}</span>
+        <span>{item.points}</span>
+        <span>
+          <button type="button" onClick={() => onRemoveItem(item)}>
+            Dismiss
+          </button>
+        </span>
+    </div>
 );
 
 
