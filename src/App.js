@@ -16,6 +16,8 @@ import axios from 'axios';
 //import UseCallback from './components/UseCallback'
 //import UseCallback2 from './components/UseCallback2'
 //import AsyncAwait from './components/AsyncAwait'
+//import HookMigration from './components/HookMigration'
+import ReactComponent from './components/ReactComponent'
 
 
 
@@ -190,10 +192,9 @@ const App = () => {
             <UseCallback />
             <UseCallback2 />
             <AsyncAwait />
+            <HookMigration />
             */}
-            
-            
-
+            <ReactComponent />
             <hr />
 
             {stories.isError && <p>Something went wrong...</p>}
