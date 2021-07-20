@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 class ComponentTypes extends React.Component {
   constructor(props) {
@@ -35,5 +35,6 @@ class ComponentTypes extends React.Component {
     );
   }
 }
+
 
 export default ComponentTypes;
