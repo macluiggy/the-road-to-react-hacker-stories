@@ -82,6 +82,10 @@ transition: all 0.1s ease-in;
 background: #171212;
 color: #ffffff;
 }
+.button:hover > svg > g {
+fill: #34ffff;
+stroke: red;
+}
 .buttonSmall {
 padding: 5px;
 }

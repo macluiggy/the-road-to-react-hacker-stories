@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './App.module.scss';
 import cs from 'classnames';
 import styled from 'styled-components';
+import { ReactComponent as Check } from './check.svg';
 //import PRACTICING from './PRACTICING.js'
 //import API from './API'
 //import UseRef from './components/useRef';
@@ -365,17 +366,6 @@ color: red;
 width: ${props => props.width};
 `;
 
-const StyledButton = styled.button`
-background: transparent;
-border: 1px solid #171212;
-padding: 5px;
-cursor: pointer;
-transition: all 0.1s ease-in;
-&:hover {
-background: #171212;
-color: #ffffff;
-}
-`;
 
 const Item = ({ item, onRemoveItem }) => (
   <StyledItem>
@@ -386,12 +376,13 @@ const Item = ({ item, onRemoveItem }) => (
     <StyledColumn width="10%">{item.num_comments}</StyledColumn>
     <StyledColumn width="10%">{item.points}</StyledColumn>
     <StyledColumn width="10%">
-      <StyledButton
+      <button
        type="button"
        onClick={() => onRemoveItem(item)}
+       className="button button_small"
       >
-        Dismiss
-      </StyledButton>
+        <Check height="18px" width="18px" />
+      </button>
     </StyledColumn>
   </StyledItem>
 );
