@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-import './App.scss';
+import styles from './App.module.scss';
+import cs from 'classnames';
+import styled from 'styled-components';
 //import PRACTICING from './PRACTICING.js'
 //import API from './API'
 //import UseRef from './components/useRef';
@@ -23,7 +25,18 @@ import './App.scss';
 //import ComponentTypes from './components/ComponentTypes'
 
 
-
+const StyledContainer = styled.div`
+height: 100vw;
+padding: 20px;
+background: #83a4d4;
+background: linear-gradient(to left, #b6fbff, #83a4d4);
+color: #171212;
+`;
+const StyledHeadlinePrimary = styled.h1`
+font-size: 48px;
+font-weight: 300;
+letter-spacing: 2px;
+`;
 /*const initialStories = [{
             title: 'React',
             url: 'https://reactjs.org/',
@@ -182,8 +195,8 @@ const App = () => {
             .includes(searchTerm.toLowerCase()))*/;
 
     return (
-        <div className='container'>
-            <h1 className='headline-primary'>My Hacker Stories</h1>
+        <StyledContainer className={styles.container}>
+            <StyledHeadlinePrimary>My Hacker Stories</StyledHeadlinePrimary>
             <SearchForm
                 searchTerm={searchTerm}
                 onSearchInput={handleSearchInput}
@@ -224,7 +237,7 @@ const App = () => {
         {/*<UseReducer2 />*/}
         {/*<UseReducer3 />*/}
         {/*<UseReducer4 />*/}
-        </div>
+        </StyledContainer>
     )
 }
 
@@ -247,7 +260,7 @@ const SearchForm = ({
             <button
              type="submit"
              disabled={!searchTerm}
-             className={className}>
+             className={cs(styles.button, styles.buttonLarge)}>
             Submit
             </button>
         </form>
@@ -308,14 +321,14 @@ class InputWithLabel extends React.Component {
 
         return (
             <>
-                <label htmlFor={id} className='label'><em>{children}</em> </label>
+                <label htmlFor={id} className={styles.label}><em>{children}</em> </label>
                 <input
                 ref={this.inputReff}
                 type={type}
                 id={id} 
                 onChange={onInputChange}
                 value={value}
-                className='input' />
+                className={styles.input} />
 
             </>
             )
@@ -334,7 +347,7 @@ const List = ({list, onRemoveItem}) =>
 
 
 const Item = ({ item, onRemoveItem }) => (
-  <div className='item'>
+  <div className={styles.item}>
     <span style={{ width: '40%' }}>
       <a href={item.url}>{item.title}</a>
     </span>
@@ -345,7 +358,7 @@ const Item = ({ item, onRemoveItem }) => (
       <button
        type="button"
        onClick={() => onRemoveItem(item)}
-       className='button button_small'>
+       className={`${styles.button} ${styles.buttonSmall}`} >
         Dismiss
       </button>
     </span>
