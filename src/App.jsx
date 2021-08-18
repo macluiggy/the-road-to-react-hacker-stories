@@ -241,6 +241,7 @@ const App = () => {
     )
 }
 
+
 //console.log(estaVaribleNoEstáDefinida)
 const SearchForm = ({
     searchTerm,
@@ -265,7 +266,7 @@ const SearchForm = ({
             </button>
         </form>
     )
-const SimpleTextComponent = () => 'Search: ';
+//const SimpleTextComponent = () => 'Search: ';
 
 /*const InputWithLabel = ({
                          id,
@@ -346,23 +347,53 @@ const List = ({list, onRemoveItem}) =>
         ));
 
 
+const StyledItem = styled.div`
+display: flex;
+align-items: center;
+padding-bottom: 5px;
+`;
+
+const StyledColumn = styled.span`
+padding: 0 5px;
+white-space: nowrap;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+a {
+color: red;
+}
+width: ${props => props.width};
+`;
+
+const StyledButton = styled.button`
+background: transparent;
+border: 1px solid #171212;
+padding: 5px;
+cursor: pointer;
+transition: all 0.1s ease-in;
+&:hover {
+background: #171212;
+color: #ffffff;
+}
+`;
+
 const Item = ({ item, onRemoveItem }) => (
-  <div className={styles.item}>
+  <StyledItem>
     <span style={{ width: '40%' }}>
       <a href={item.url}>{item.title}</a>
     </span>
-    <span style={{ width: '30%' }}>{item.author}</span>
-    <span style={{ width: '10%' }}>{item.num_comments}</span>
-    <span style={{ width: '10%' }}>{item.points}</span>
-    <span style={{ width: '10%' }}>
-      <button
+    <StyledColumn width='30%'>{item.author}</StyledColumn>
+    <StyledColumn width="10%">{item.num_comments}</StyledColumn>
+    <StyledColumn width="10%">{item.points}</StyledColumn>
+    <StyledColumn width="10%">
+      <StyledButton
        type="button"
        onClick={() => onRemoveItem(item)}
-       className={`${styles.button} ${styles.buttonSmall}`} >
+      >
         Dismiss
-      </button>
-    </span>
-  </div>
+      </StyledButton>
+    </StyledColumn>
+  </StyledItem>
 );
 
 
