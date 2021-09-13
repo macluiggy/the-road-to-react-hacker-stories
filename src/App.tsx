@@ -24,7 +24,7 @@ import { ReactComponent as Check } from './check.svg';
 //import HookMigration from './components/HookMigration'
 //import ReactComponent from './components/ReactComponent'
 //import ComponentTypes from './components/ComponentTypes'
-import Memo from './components/memo'
+//import Memo from './components/memo'
 
 
 const StyledContainer = styled.div`
@@ -97,7 +97,10 @@ const storiesReducer = (state, action) => {
 /*const getAsyncStories = () =>
     new Promise((resolve, reject) => setTimeout(reject, 2000));*/
 
-const useSemiPersistenceStatesss = (key, initialState) => {
+const useSemiPersistenceStatesss = (
+    key: string, 
+    initialState: string,
+): [string, (newValue: string) => void] => {
     const isMounted = React.useRef(false);
 
     const [value, setValue] = React.useState(
@@ -228,8 +231,9 @@ const App = () => {
             <HookMigration />
             <ReactComponent />
             <ComponentTypes />
-            */}
             <Memo />
+            */}
+
 
 
             {stories.isError && <p>Something went wrong...</p>}
@@ -355,7 +359,7 @@ class InputWithLabel extends React.Component {
 }
        
 
-const List = React.memo(
+const List = 
         ({list, onRemoveItem}) => 
             console.log('B:list') ||
             list.map(item => (
@@ -365,7 +369,6 @@ const List = React.memo(
                     onRemoveItem={onRemoveItem} 
                 />
                 ))
-    );
 
 
 const StyledItem = styled.div`
@@ -387,7 +390,27 @@ width: ${props => props.width};
 `;
 
 
-const Item = ({ item, onRemoveItem }) => (
+
+type Story = {
+        objectID: string;
+        url: string;
+        title: string;
+        author: string;
+        num_comments: number;
+        points: number;
+    }
+
+type Stories = Array<Story>;
+
+type listProps = {
+    list: Stories;
+    onRemoveItem: (item: Story) => void;
+}
+/*type itemProps = {
+    item: Story;
+    onRemoveItem: (item: Story) => void;
+}*/
+const Item = ({ item, onRemoveItem }: listProps) => (
   <StyledItem>
     <span style={{ width: '40%' }}>
       <a href={item.url}>{item.title}</a>
