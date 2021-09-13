@@ -24,6 +24,7 @@ import { ReactComponent as Check } from './check.svg';
 //import HookMigration from './components/HookMigration'
 //import ReactComponent from './components/ReactComponent'
 //import ComponentTypes from './components/ComponentTypes'
+import Memo from './components/memo'
 
 
 const StyledContainer = styled.div`
@@ -116,7 +117,13 @@ const useSemiPersistenceStatesss = (key, initialState) => {
 
         return [value, setValue]
 }
-
+const getSumComments = stories => {
+    console.log('C')
+    return stories.data.reduce(
+        (result, value) => result + value.num_comments,
+        0
+    )
+}
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
 const App = () => {
     console.log('B:App')
@@ -202,9 +209,10 @@ const App = () => {
             .toLowerCase()
             .includes(searchTerm.toLowerCase()))*/;
 
+    const sumComments = React.useMemo(() => getSumComments(stories), [stories]);
     return (
         <StyledContainer className={styles.container}>
-            <StyledHeadlinePrimary>My Hacker Stories</StyledHeadlinePrimary>
+            <StyledHeadlinePrimary>My Hacker Stories with {sumComments} comments.</StyledHeadlinePrimary>
             <SearchForm
                 searchTerm={searchTerm}
                 onSearchInput={handleSearchInput}
@@ -221,6 +229,8 @@ const App = () => {
             <ReactComponent />
             <ComponentTypes />
             */}
+            <Memo />
+
 
             {stories.isError && <p>Something went wrong...</p>}
 
