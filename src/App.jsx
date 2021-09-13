@@ -97,15 +97,22 @@ const storiesReducer = (state, action) => {
     new Promise((resolve, reject) => setTimeout(reject, 2000));*/
 
 const useSemiPersistenceStatesss = (key, initialState) => {
+    const isMounted = React.useRef(false);
+
     const [value, setValue] = React.useState(
         localStorage.getItem(key) || initialState
         )
 
     React.useEffect(() => {
-            localStorage.setItem(key, value)
+        if (!isMounted.current) {
+            isMounted.current = true;
             //console.log(localStorage.getItem('identificador'))
+        } else {
+            console.log('A')
+            localStorage.setItem(key, value)
+        }
 
-        }, [value, key]);
+    }, [value, key]);
 
         return [value, setValue]
 }
