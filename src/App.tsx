@@ -490,3 +490,5 @@ const Item = ({ item, onRemoveItem }: listProps) => (
 
 
 export default App;
+
+export { SearchForm, InputWithLabel, List, Item };
