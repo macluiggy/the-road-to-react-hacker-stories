@@ -26,6 +26,60 @@ import { ReactComponent as Check } from './check.svg';
 //import ComponentTypes from './components/ComponentTypes'
 //import Memo from './components/memo'
 
+type Story = {
+        objectID: string;
+        url: string;
+        title: string;
+        author: string;
+        num_comments: number;
+        points: number;
+    }
+
+type Stories = Array<Story>;
+
+type listProps = {
+    list: Stories;
+    onRemoveItem: (item: Story) => void;
+}
+/*type itemProps = {
+    item: Story;
+    onRemoveItem: (item: Story) => void;
+}*/
+
+type StoriesState = {
+    data: Stories;
+    isLoading: boolean;
+    isError: boolean;
+}
+
+/*type StoriesAction = {
+    type: string;
+    payload: any;
+}*/
+
+interface StoriesFetchInitAction {
+    type: 'STORIES_FETCH_INIT';
+}
+
+interface StoriesFetchSuccessAction {
+    type: 'STORIES_FETCH_SUCCESS';
+    payload: Stories;
+}
+
+interface StoriesFetchFailureAction {
+    type: 'STORIES_FETCH_FAILURE';
+}
+
+interface StoriesRemoveAction {
+    type: 'REMOVE_STORY';
+    payload: Story;
+}
+
+type StoriesAction = 
+  | StoriesFetchInitAction
+  | StoriesFetchSuccessAction
+  | StoriesFetchFailureAction
+  | StoriesRemoveAction
 
 const StyledContainer = styled.div`
 height: 100vw;
@@ -62,7 +116,10 @@ letter-spacing: 2px;
             }
         },
     ];*/
-const storiesReducer = (state, action) => {
+const storiesReducer = (
+    state: StoriesState,
+    action: StoriesAction
+) => {
     switch (action.type) {
         case 'STORIES_FETCH_INIT':
             return {
@@ -186,12 +243,12 @@ const App = () => {
         handleFetchStories();
     }, [handleFetchStories])
     
-    const handleRemoveStory = React.useCallback(item => {
+    const handleRemoveStory = (item: Story) => {
             dispatchStories({
                 type: 'REMOVE_STORIES',
                 payload: item,
             });
-        }, [])
+        }
     /*const handleSearch = event => {
         let v = event.target.value;
         setSearchTerm(v);
@@ -391,25 +448,7 @@ width: ${props => props.width};
 
 
 
-type Story = {
-        objectID: string;
-        url: string;
-        title: string;
-        author: string;
-        num_comments: number;
-        points: number;
-    }
 
-type Stories = Array<Story>;
-
-type listProps = {
-    list: Stories;
-    onRemoveItem: (item: Story) => void;
-}
-/*type itemProps = {
-    item: Story;
-    onRemoveItem: (item: Story) => void;
-}*/
 const Item = ({ item, onRemoveItem }: listProps) => (
   <StyledItem>
     <span style={{ width: '40%' }}>
