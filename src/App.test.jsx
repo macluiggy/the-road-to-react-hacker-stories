@@ -29,12 +29,35 @@ describe('Item', () => {
     points: 4,
     objectID: 0,
   };
+  const component = renderer.create(<Item item={item} />);
 
-  it('render all properties', () => {
-    const component = renderer.create(<Item item={item} />);
+  /*it('render all properties', () => {
 
     expect(component.root.findByType('a').props.href).toEqual(
       'https://reactjs.org/'
     )
-  })
+    expect(
+      component.root.findAllByType('span')[1].props.children
+    ).toEqual('Jordan Walke')
+  });*/
+
+  it('render all properties', () => {
+
+    expect(component.root.findByType('a').props.href).toEqual(
+      'https://reactjs.org/'
+    )
+    expect(
+      component.root.findAllByType('span')[1].props.children
+    ).toEqual('Jordan Walke')
+
+    expect(
+      component.root.findAllByProps({ children: 'Jordan Walke' })
+        .length
+    ).toEqual(2)
+  });
+
+  it(`poinst equal to ${item.points}`, () => {
+      expect(component.root.findAllByType('span')[3].props.children)
+      .toEqual(4)
+    });
 })
