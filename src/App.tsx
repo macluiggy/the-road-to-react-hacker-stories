@@ -254,11 +254,15 @@ const App = () => {
         setSearchTerm(v);
     }*/
 
-    const handleSearchInput = event => {
+    const handleSearchInput = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         setSearchTerm(event.target.value);
     }
 
-    const handleSearchSubmit = event => {
+    const handleSearchSubmit = (
+        event: React.FormEvent<HTMLFormElement>
+    ) => {
         setUrl(`${API_ENDPOINT}${searchTerm}`)
 
         event.preventDefault()
@@ -320,6 +324,12 @@ const App = () => {
     )
 }
 
+type SearchFormProps = {
+    searchTerm: string;
+    className: string;
+    onSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}
 
 //console.log(estaVaribleNoEstáDefinida)
 const SearchForm = ({
@@ -327,7 +337,7 @@ const SearchForm = ({
     onSearchInput,
     onSearchSubmit,
     className,
-}) => (
+}: SearchFormProps) => (
         <form onSubmit={onSearchSubmit} className='search-form'>
             <InputWithLabel
             id="search"
@@ -376,12 +386,19 @@ const SearchForm = ({
         </>
         )
 }*/
-
+type InputWithLabelProps = {
+    id: string;
+    value: string;
+    type?: string;
+    onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    isFocused?: boolean;
+    children: React.ReactNode;
+}
 class InputWithLabel extends React.Component {
     constructor(props) {
         super(props);
 
-        this.inputReff = React.createRef();
+        this.inputReff = React.createRef<HTMLInputElement>(null!);
     }
 
     componentDidMount() {
@@ -397,7 +414,7 @@ class InputWithLabel extends React.Component {
             type = 'text',
             onInputChange,
             children,
-        } = this.props;
+        }: InputWithLabelProps = this.props;
 
         return (
             <>
@@ -417,16 +434,18 @@ class InputWithLabel extends React.Component {
        
 
 const List = 
-        ({list, onRemoveItem}) => 
-            console.log('B:list') ||
-            list.map(item => (
-                <Item 
-                    key={item.objectID} 
-                    item={item}
-                    onRemoveItem={onRemoveItem} 
-                />
-                ))
-
+        ({list, onRemoveItem}: listProps) => (
+                    console.log('B:list') ||
+                <>
+                    {list.map(item => (
+                        <Item 
+                            key={item.objectID} 
+                            item={item}
+                            onRemoveItem={onRemoveItem} 
+                        />
+                    ))}
+                </>
+        )
 
 const StyledItem = styled.div`
 display: flex;
