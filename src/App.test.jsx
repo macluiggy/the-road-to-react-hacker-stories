@@ -51,11 +51,25 @@ describe('Item', () => {
     ).toEqual('Jordan Walke')
 
     expect(
-      component.root.findAllByProps({ children: 'Jordan Walke' })
+      component.root.findAllByProps({ children: 'React' })
         .length
-    ).toEqual(2)
+    ).toEqual(1)
   });
 
+  it('calls onRemoveItem on button click', () => {
+    const handleRemoveItem = jest.fn();
+
+    const component = renderer.create(
+      <Item  item={item} onRemoveItem={handleRemoveItem} />
+    )
+
+    component.root.findByType('button').props.onClick();
+
+    expect(handleRemoveItem).toHaveBeenCalledTimes(1)
+    expect(handleRemoveItem).toHaveBeenCalledTimes(item);
+
+    expect(component.root.findAllByType(Item).length).toEqual(1)
+  })
   it(`poinst equal to ${item.points}`, () => {
       expect(component.root.findAllByType('span')[3].props.children)
       .toEqual(4)
