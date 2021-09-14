@@ -29,20 +29,18 @@ describe('Item', () => {
     points: 4,
     objectID: 0,
   };
-  const component = renderer.create(<Item item={item} />);
+  const handleRemoveItem = jest.fn();
 
-  /*it('render all properties', () => {
+  let component;
 
-    expect(component.root.findByType('a').props.href).toEqual(
-      'https://reactjs.org/'
+  beforeEach(() => {
+    component = renderer.create(
+      <Item item={item} onRemoveItem={handleRemoveItem} />
     )
-    expect(
-      component.root.findAllByType('span')[1].props.children
-    ).toEqual('Jordan Walke')
-  });*/
+  })
 
   it('render all properties', () => {
-
+    const component = renderer.create(<Item item={item} />);
     expect(component.root.findByType('a').props.href).toEqual(
       'https://reactjs.org/'
     )
@@ -57,21 +55,70 @@ describe('Item', () => {
   });
 
   it('calls onRemoveItem on button click', () => {
-    const handleRemoveItem = jest.fn();
+    const handleRemoveItem = jest.fn();//crea un simulacro de la funcion
 
     const component = renderer.create(
-      <Item  item={item} onRemoveItem={handleRemoveItem} />
+      <Item  item={item} onRemoveItem={handleRemoveItem} />//crea un componente jest
     )
 
+    //encuentra de ese componente el elemento react que sea boton y llama a la funcion
+    //que se encuentra en este elemento
     component.root.findByType('button').props.onClick();
 
-    expect(handleRemoveItem).toHaveBeenCalledTimes(1)
-    expect(handleRemoveItem).toHaveBeenCalledTimes(item);
+    //haz el test que espera que la funcion haya sido llamada 1 vez
+    expect(handleRemoveItem).toHaveBeenCalledTimes(1);
+    //se hace el test de que la funcion haya sido invocada con el argumento item
+    expect(handleRemoveItem).toHaveBeenCalledWith(item);
 
+    //testea que la cantidad de componentes Item sea igual a uno
     expect(component.root.findAllByType(Item).length).toEqual(1)
   })
   it(`poinst equal to ${item.points}`, () => {
+    const component = renderer.create(<Item item={item} />);
       expect(component.root.findAllByType('span')[3].props.children)
       .toEqual(4)
     });
+})
+
+describe('List', () => {
+  const list = [
+    {
+      title: 'React',
+      url: 'https://reactjs.org/',
+      author: 'Jordan Walke',
+      num_comments: 3,
+      points: 4,
+      objectID: 0,
+    },
+    {
+      title: 'Redux',
+      url: 'https://redux.js.org/',
+      author: 'Dan Abramov, Andrew Clark',
+      num_comments: 2,
+      points: 5,
+      objectID: 1,
+    },
+  ]
+
+  it('renders two items', () => {
+    //crea la funcion jest para que tome el lugar de la funcion del evento
+    //cuando sea llamada
+    const handleRemoveItem = jest.fn()
+
+    //crea un component jest para el componente List
+    const component = renderer.create(
+      <List list={list} onRemoveItem={handleRemoveItem} />
+    );
+    //encuentra de ese componente el elemento react que sea boton y llama 2 veces
+    //a la funcion que se encuentra en el componente List
+    component.root.findAllByType('button')[0].props.onClick();
+    component.root.findAllByType('button')[1].props.onClick();
+
+    //haz el test que espera que la funcion haya sido llamada 2 vez
+    expect(handleRemoveItem).toHaveBeenCalledTimes(2);
+
+    //se espera que la cantidad de Item que se mapean en el componente
+    //List sean los mismos que la variable list
+    expect(component.root.findAllByType(Item).length).toEqual(2)
+  })
 })
