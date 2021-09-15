@@ -54,7 +54,7 @@ describe('Item', () => {
     ).toEqual(1)
   });
 
-  /*it('calls onRemoveItem on button click', () => {
+  it('calls onRemoveItem on button click', () => {
     const handleRemoveItem = jest.fn();//crea un simulacro de la funcion
 
     const component = renderer.create(
@@ -72,7 +72,7 @@ describe('Item', () => {
 
     //testea que la cantidad de componentes Item sea igual a uno
     expect(component.root.findAllByType(Item).length).toEqual(1)
-  })*/
+  })
   it(`poinst equal to ${item.points}`, () => {
     const component = renderer.create(<Item item={item} />);
       expect(component.root.findAllByType('span')[3].props.children)
@@ -126,5 +126,31 @@ describe('List', () => {
     //se espera que la cantidad de Item que se mapean en el componente
     //List sean los mismos que la variable list
     expect(component.root.findAllByType(Item).length).toEqual(2)
+  })
+})
+
+describe('SearchForm', () =>{
+  const searchFormProps = {
+    searchTerm: 'React',
+    onSearchInput: jest.fn(),
+    onSearchSubmit: jest.fn(),
+  }
+
+  let component;
+  // the beforeEach() is run before each test in a describe
+  beforeEach(() => {
+    component = renderer.create(<SearchForm {...searchFormProps} />);
+  })
+
+  //como lo dice la descripcion, este test renderizara el campo de entrada
+  //con su valor
+  it('renders the input field with its value', () => {
+    //declara una variable la cual buscara el typo de elemento (componente en este
+    //caso) y encontrar su valor por medio de sus propiedades (que serian los
+    //atributos HTML)
+    const value = component.root.findByType(InputWithLabel).props.value;
+
+    //se espera que el valor que encuentre en la prop value sea igual a 'React'
+    expect(value).toEqual('React');
   })
 })

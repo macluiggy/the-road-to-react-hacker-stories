@@ -394,43 +394,36 @@ type InputWithLabelProps = {
     isFocused?: boolean;
     children: React.ReactNode;
 }
-class InputWithLabel extends React.Component {
-    constructor(props) {
-        super(props);
+const InputWithLabel = ({
+  id,
+  value,
+  type = 'text',
+  onInputChange,
+  isFocused,
+  children,
+}: InputWithLabelProps) => {
+  const inputRef = React.useRef<HTMLInputElement>(null!);
 
-        this.inputReff = React.createRef<HTMLInputElement>(null!);
+  React.useEffect(() => {
+    if (isFocused && inputRef.current) {
+      inputRef.current.focus();
     }
+  }, [isFocused]);
 
-    componentDidMount() {
-        if (this.props.isFocused) {
-            this.inputReff.current.focus()
-        }
-    }
-
-    render() {
-        const {
-            id,
-            value,
-            type = 'text',
-            onInputChange,
-            children,
-        }: InputWithLabelProps = this.props;
-
-        return (
-            <>
-                <label htmlFor={id} className={styles.label}><em>{children}</em> </label>
-                <input
-                ref={this.inputReff}
-                type={type}
-                id={id} 
-                onChange={onInputChange}
-                value={value}
-                className={styles.input} />
-
-            </>
-            )
-    }
-}
+  return (
+    <>
+      <label htmlFor={id}>{children}</label>
+      &nbsp;
+      <input
+        ref={inputRef}
+        id={id}
+        type={type}
+        value={value}
+        onChange={onInputChange}
+      />
+    </>
+  );
+};
        
 
 const List = 
