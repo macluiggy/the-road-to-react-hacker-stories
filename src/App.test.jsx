@@ -148,9 +148,35 @@ describe('SearchForm', () =>{
     //declara una variable la cual buscara el typo de elemento (componente en este
     //caso) y encontrar su valor por medio de sus propiedades (que serian los
     //atributos HTML)
-    const value = component.root.findByType(InputWithLabel).props.value;
+    const value = component.root.findByType('input' || InputWithLabel).props.value;
 
     //se espera que el valor que encuentre en la prop value sea igual a 'React'
     expect(value).toEqual('React');
+  })
+
+  it('changes the input field', () => {
+    //crea un pseudo evento
+    const pseudoEvent = { target: 'Redux' };
+
+    //encuentra por el tipo de elemento input y llama a la funchon con la
+    //prop onChange
+    component.root.findByType('input').props.onChange(pseudoEvent);
+
+    //se espera que la funcion onsearchinput sea llamada una vez ya que el
+    //las props de searchform solo es un objeto y no un arreglo de objetos
+    expect(searchFormProps.onSearchInput).toHaveBeenCalledTimes(1);
+    //se espera que la misma funcion haya sido llamada con el pseudo evento
+    //pseudoEvent
+    expect(searchFormProps.onSearchInput).toHaveBeenCalledWith(pseudoEvent);
+  })
+
+  it('submit the form', () => {
+    //crea un pseudo evento
+    const pseudoEvent = {};
+
+    component.root.findByType('form').props.onSubmit(pseudoEvent);
+
+    expect(searchFormProps.onSearchSubmit).toHaveBeenCalledWith(pseudoEvent);
+    expect(searchFormProps.onSearchSubmit).toHaveBeenCalledWith(pseudoEvent);
   })
 })
