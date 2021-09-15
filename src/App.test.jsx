@@ -160,7 +160,12 @@ describe('SearchForm', () =>{
 
     //encuentra por el tipo de elemento input y llama a la funchon con la
     //prop onChange
-    component.root.findByType('input').props.onChange(pseudoEvent);
+    component
+          .root
+          .findByType('input'/*InputWithLabel*/)//dependiendo del elemento que se
+          //elija
+          .props.onChange/*onInputChange*/(pseudoEvent);//se va a usar la prop
+          //que le corresponda
 
     //se espera que la funcion onsearchinput sea llamada una vez ya que el
     //las props de searchform solo es un objeto y no un arreglo de objetos
@@ -174,9 +179,18 @@ describe('SearchForm', () =>{
     //crea un pseudo evento
     const pseudoEvent = {};
 
+    //llama a la funcion que se encuentra en la prop onSubmit dentro del elemento
+    //'form'
     component.root.findByType('form').props.onSubmit(pseudoEvent);
 
+    //se espera que la funcion que fue invocada haya sido llamada
+    //1 vez y 
+    expect(searchFormProps.onSearchSubmit).toHaveBeenCalledTimes(1);
+    //tambien se espera que haya sido invocada con el argumento pseudoEvent
     expect(searchFormProps.onSearchSubmit).toHaveBeenCalledWith(pseudoEvent);
-    expect(searchFormProps.onSearchSubmit).toHaveBeenCalledWith(pseudoEvent);
+  })
+  it('check if the button is disbled', () => {
+    //se espera que el elemento encontrado ('button') no este deshabilitado
+    expect(component.root.findByType('button').props.disabled).toEqual(false)
   })
 })
