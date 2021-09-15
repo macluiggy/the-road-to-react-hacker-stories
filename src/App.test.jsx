@@ -54,7 +54,7 @@ describe('Item', () => {
     ).toEqual(1)
   });
 
-  it('calls onRemoveItem on button click', () => {
+  /*it('calls onRemoveItem on button click', () => {
     const handleRemoveItem = jest.fn();//crea un simulacro de la funcion
 
     const component = renderer.create(
@@ -72,7 +72,7 @@ describe('Item', () => {
 
     //testea que la cantidad de componentes Item sea igual a uno
     expect(component.root.findAllByType(Item).length).toEqual(1)
-  })
+  })*/
   it(`poinst equal to ${item.points}`, () => {
     const component = renderer.create(<Item item={item} />);
       expect(component.root.findAllByType('span')[3].props.children)
@@ -109,6 +109,12 @@ describe('List', () => {
     const component = renderer.create(
       <List list={list} onRemoveItem={handleRemoveItem} />
     );
+    //Dado que hay mas de un item dentro del cual cada item tiene el atributo 'a'
+    //se debe usar findAllByType
+    //se espera que el primer elemento a tenga su url igual a list[0].url
+    //y el segunfo sea igaul a list[1].url
+    expect(component.root.findAllByType('a')[0].props.href).toEqual('https://reactjs.org/')
+    expect(component.root.findAllByType('a')[1].props.href).toEqual('https://redux.js.org/')
     //encuentra de ese componente el elemento react que sea boton y llama 2 veces
     //a la funcion que se encuentra en el componente List
     component.root.findAllByType('button')[0].props.onClick();
