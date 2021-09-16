@@ -47,7 +47,17 @@ describe('Item', () => {
     expect(
       component.root.findAllByType('span')[1].props.children
     ).toEqual('Jordan Walke')
+    expect(
+      component.root.findAllByProps({children: 'Jordan Walke'}).length
+    ).toEqual(2)
 
+    //Se espera encontrar un solo tipo de elemento 'a' y que su children
+    //sea igual a 'React'
+    expect(
+      component.root.findByType('a').props.children
+    ).toEqual('React');
+    //este test es basicamente igual al anterior, se espera el mismo resultado
+    // solo que aqui se usa 'findAllByProps' y un objeto que contiene la prop deseada
     expect(
       component.root.findAllByProps({ children: 'React' })
         .length
