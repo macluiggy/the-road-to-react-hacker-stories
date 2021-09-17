@@ -203,4 +203,19 @@ describe('SearchForm', () =>{
     //se espera que el elemento encontrado ('button') no este deshabilitado
     expect(component.root.findByType('button').props.disabled).toEqual(false)
   })
+
+  it('disables the button and prevents submit', () => {
+    /*component =  renderer.create(
+      <SearchForm {...searchFormProps} searchTerm='' />
+    )*/
+    //lo de arriba seria lo habitual, pero usando el metodo update() nos permite
+    //simplemente actualizar el componente con nuevas props
+    component.update(
+      <SearchForm {...searchFormProps} searchTerm='' />
+    )
+
+    expect(
+      component.root.findByType('button').props.disabled
+    ).toBeTruthy();
+  })
 })
