@@ -273,6 +273,29 @@ describe('App', () => {
     //se espera que al encontrar el tipo List (el componente con los datos
     //asincronos) sus prop list sea igual a list
     expect(component.root.findByType(List).props.list).toEqual(list);
+  });
+
+  it('fails  fetching data with a list', async () => {
+    //crea la promesa
+    const promise = Promise.reject();
+
+    //simula la llamada a la API
+    axios.get.mockImplementationOnce(() => promise);
+
+    //define el componente
+    let component;
+
+    //esa await y async dado que el componente hijo List recibe los datos
+    //asincronos
+    await renderer.act(async () => {
+      component = renderer.create(<App />);
+    })
+
+    //una vez se haya heco la peticion, testea que el tipo de elemento 'p',
+    //el cual es el que tiene el mensaje de error, su prop children sea igual al
+    //mensaje que del test
+    expect(component.root.findByType('p').props.children)
+          .toEqual('Something went wrong...')
   })
 })
 
