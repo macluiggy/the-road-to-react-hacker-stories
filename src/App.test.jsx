@@ -229,52 +229,89 @@ describe('SearchForm', () =>{
 jest.mock('axios');
 
 describe('App', () => {
-  it('succeeds fetching data with list', () => {
+  it('succeeds fetching data with list', async () => {
+    //crea una lista que sera los datos a traer
     const list = [
-          {
-            title: 'React',
-            url: 'https://reactjs.org/',
-            author: 'Jordan Walke',
-            num_comments: 3,
-            points: 4,
-            objectID: 0,
-          },
-          {
-            title: 'Redux',
-            url: 'https://redux.js.org/',
-            author: 'Dan Abramov, Andrew Clark',
-            num_comments: 2,
-            points: 5,
-            objectID: 1,
-          },
-    ]
+      {
+        title: 'React',
+        url: 'https://reactjs.org/',
+        author: 'Jordan Walke',
+        num_comments: 3,
+        points: 4,
+        objectID: 0,
+      },
+      {
+        title: 'Redux',
+        url: 'https://redux.js.org/',
+        author: 'Dan Abramov, Andrew Clark',
+        num_comments: 2,
+        points: 5,
+        objectID: 1,
+      },
+    ];
+    //crea una promesa con el array que se va a devolver
+    const promise = Promise.resolve({
+      data: {
+        hits: list,
+      },
+    });
+    //esto hace que se simule el metofo get() de axios ya que la data que se
+    //prevee no se puede ver en el test
+    axios.get.mockImplementationOnce(() => promise);
+
+    let component;
+
+    //dado que estamos usando axios para traer datos asincronos, al definir el
+    //componente App debemos hacerlos de manera asincrona, ya que dentro de App
+    //tambien se renderiza el componente List el cual es el que contiene los datos
+    //asincronos
+    await renderer.act(async () => {
+      component = renderer.create(<App />);
+    });
+
+    //una vez se obtengan los datos realizamos el test, el cual dice que
+    //se espera que al encontrar el tipo List (el componente con los datos
+    //asincronos) sus prop list sea igual a list
+    expect(component.root.findByType(List).props.list).toEqual(list);
+  })
+})
+
+/*describe('App', () => {
+  it('succeeds fetching data with a list', async () => {
+    const list = [
+      {
+        title: 'React',
+        url: 'https://reactjs.org/',
+        author: 'Jordan Walke',
+        num_comments: 3,
+        points: 4,
+        objectID: 0,
+      },
+      {
+        title: 'Redux',
+        url: 'https://redux.js.org/',
+        author: 'Dan Abramov, Andrew Clark',
+        num_comments: 2,
+        points: 5,
+        objectID: 1,
+      },
+    ];
 
     const promise = Promise.resolve({
       data: {
         hits: list,
-      }
+      },
     });
 
-    axios.get.mockImplementationOnce(() => promise)
+    axios.get.mockImplementationOnce(() => promise);
 
     let component;
 
-    renderer.act(async () => {
+    await renderer.act(async () => {
       component = renderer.create(<App />);
-    })
-    
-    expect(component.root.findByType(List).props.list).toEqual(list);
-  })
+    });
 
-  it('fails fetching data with a list', async () => {
-     const promise = Promise.reject();
-     axios.get.mockImplementationOnce(() => promise);
-     let component;
-      renderer.act(async () => {
-         component = renderer.create(<App />);
-     });
-     expect(component.root.findByType('p').props.children).toEqual(
-         'Something went wrong ...'
-     );
+    expect(component.root.findByType(List).props.list).toEqual(list);
   });
-})
+});
+*/
