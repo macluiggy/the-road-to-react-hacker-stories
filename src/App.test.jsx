@@ -52,7 +52,9 @@ describe('Item', () => {
     expect(
       component.root.findAllByProps({children: 'Jordan Walke'}).length
     ).toEqual(2)
-
+    expect(
+      component.root.findAllByType('span')[2].props.children
+    ).toEqual(3)
     //Se espera encontrar un solo tipo de elemento 'a' y que su children
     //sea igual a 'React'
     expect(
@@ -168,7 +170,7 @@ describe('SearchForm', () =>{
 
   it('changes the input field', () => {
     //crea un pseudo evento
-    const pseudoEvent = { target: 'Redux' };
+    const pseudoEvent = { target: { value: 'Redux' } };
 
     //encuentra por el tipo de elemento input y llama a la funchon con la
     //prop onChange
@@ -211,7 +213,8 @@ describe('SearchForm', () =>{
       <SearchForm {...searchFormProps} searchTerm='' />
     )*/
     //lo de arriba seria lo habitual, pero usando el metodo update() nos permite
-    //simplemente actualizar el componente con nuevas props
+    //simplemente actualizar el componente con nuevas props, de esta forma no tendremos
+    // que redefinir el componente, solo actualizarlo
     component.update(
       <SearchForm {...searchFormProps} searchTerm='' />
     )
@@ -226,6 +229,7 @@ describe('SearchForm', () =>{
   })
 })
 
+//esto simula la libreria axios en jest
 jest.mock('axios');
 
 describe('App', () => {
@@ -260,7 +264,6 @@ describe('App', () => {
     axios.get.mockImplementationOnce(() => promise);
 
     let component;
-
     //dado que estamos usando axios para traer datos asincronos, al definir el
     //componente App debemos hacerlos de manera asincrona, ya que dentro de App
     //tambien se renderiza el componente List el cual es el que contiene los datos
