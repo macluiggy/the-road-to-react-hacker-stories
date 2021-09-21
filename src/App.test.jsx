@@ -92,6 +92,11 @@ describe('Item', () => {
       expect(component.root.findAllByType('span')[3].props.children)
       .toEqual(4)
     });
+
+  test('renders snapshot', () => {
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot()
+  })
 })
 
 describe('List', () => {
