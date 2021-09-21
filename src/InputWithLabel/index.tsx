@@ -34,6 +34,7 @@ const InputWithLabel = ({
         type={type}
         value={value}
         onChange={onInputChange}
+        className='joker'
       />
     </>
   );

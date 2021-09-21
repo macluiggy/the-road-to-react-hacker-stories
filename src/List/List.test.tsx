@@ -107,7 +107,8 @@ describe('Item', () => {
   });
 
   it('calls onRemoveItem on button click', () => {
-    const handleRemoveItem = jest.fn();//crea un simulacro de la funcion
+    const handleRemoveItem = jest.fn();//crea un simulacro de la funcion, esta funcion
+    //puede tener cualquier nombre, ya que la funcion que emula es anónima
 
     const component = renderer.create(
       <Item  item={item} onRemoveItem={handleRemoveItem} />//crea un componente jest

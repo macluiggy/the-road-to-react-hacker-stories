@@ -14,6 +14,7 @@ exports[`SearchForm renders snapshot for SearchForm Component 1`] = `
   </label>
    
   <input
+    className="joker"
     id="search"
     onChange={[MockFunction]}
     type="text"
