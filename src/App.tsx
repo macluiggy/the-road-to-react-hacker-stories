@@ -26,6 +26,10 @@ import { ReactComponent as Check } from './check.svg';
 //import ComponentTypes from './components/ComponentTypes'
 //import Memo from './components/memo'
 
+import List from './List.tsx';
+import SearchForm from './SearchForm/'
+
+
 type Story = {
         objectID: string;
         url: string;
@@ -324,37 +328,7 @@ const App = () => {
     )
 }
 
-type SearchFormProps = {
-    searchTerm: string;
-    className: string;
-    onSearchInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    onSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-}
 
-//console.log(estaVaribleNoEstáDefinida)
-const SearchForm = ({
-    searchTerm,
-    onSearchInput,
-    onSearchSubmit,
-    className,
-}: SearchFormProps) => (
-        <form onSubmit={onSearchSubmit} className='search-form'>
-            <InputWithLabel
-            id="search"
-            value={searchTerm}
-            isFocused
-            onInputChange={onSearchInput}
-            >
-            <strong>Search:</strong>
-            </InputWithLabel>
-            <button
-             type="submit"
-             disabled={!searchTerm}
-             className={cs(styles.button, styles.buttonLarge)}>
-            Submit
-            </button>
-        </form>
-    )
 //const SimpleTextComponent = () => 'Search: ';
 
 /*const InputWithLabel = ({
@@ -386,102 +360,7 @@ const SearchForm = ({
         </>
         )
 }*/
-type InputWithLabelProps = {
-    id: string;
-    value: string;
-    type?: string;
-    onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    isFocused?: boolean;
-    children: React.ReactNode;
-}
-const InputWithLabel = ({
-  id,
-  value,
-  type = 'text',
-  onInputChange,
-  isFocused,
-  children,
-}: InputWithLabelProps) => {
-  const inputRef = React.useRef<HTMLInputElement>(null!);
 
-  React.useEffect(() => {
-    if (isFocused && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isFocused]);
-
-  return (
-    <>
-      <label htmlFor={id}>{children}</label>
-      &nbsp;
-      <input
-        ref={inputRef}
-        id={id}
-        type={type}
-        value={value}
-        onChange={onInputChange}
-      />
-    </>
-  );
-};
-       
-
-const List = 
-        ({list, onRemoveItem}: listProps) => (
-                    console.log('B:list') ||
-                <>
-                    {list.map(item => (
-                        <Item 
-                            key={item.objectID} 
-                            item={item}
-                            onRemoveItem={onRemoveItem} 
-                        />
-                    ))}
-                </>
-        )
-
-const StyledItem = styled.div`
-display: flex;
-align-items: center;
-padding-bottom: 5px;
-`;
-
-const StyledColumn = styled.span`
-padding: 0 5px;
-white-space: nowrap;
-overflow: hidden;
-white-space: nowrap;
-text-overflow: ellipsis;
-a {
-color: red;
-}
-width: ${props => props.width};
-`;
-
-
-
-
-const Item = ({ item, onRemoveItem }: listProps) => (
-  <StyledItem>
-    <span style={{ width: '40%' }}>
-      <a href={item.url}>{item.title}</a>
-    </span>
-    <StyledColumn width='30%'>{item.author}</StyledColumn>
-    <StyledColumn width="10%">{item.num_comments}</StyledColumn>
-    <StyledColumn width="10%">{item.points}</StyledColumn>
-    <StyledColumn width="10%">
-      <button
-       type="button"
-       onClick={() => onRemoveItem(item)}
-       className="button button_small"
-      >
-        <Check height="18px" width="18px" />
-      </button>
-    </StyledColumn>
-  </StyledItem>
-);
 
 
 export default App;
-
-export { SearchForm, InputWithLabel, List, Item };
