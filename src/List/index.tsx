@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as Check } from './check.svg';
+import { ReactComponent as Check } from '../check.svg';
 
 import React from 'react';
 
@@ -38,7 +38,7 @@ width: ${props => props.width};
 
 
 
-const Item = ({ item, onRemoveItem }: listProps) => (
+export const Item = ({ item, onRemoveItem }: listProps) => (
   <StyledItem>
     <span style={{ width: '40%' }}>
       <a href={item.url}>{item.title}</a>

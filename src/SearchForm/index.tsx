@@ -1,5 +1,5 @@
 import React from 'react';
-import InputWithLabel from '../InputWithLabel.tsx';
+import InputWithLabel from '../InputWithLabel/';
 import cs from 'classnames';
 import styles from '../App.module.scss';
 

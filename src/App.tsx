@@ -26,7 +26,7 @@ import { ReactComponent as Check } from './check.svg';
 //import ComponentTypes from './components/ComponentTypes'
 //import Memo from './components/memo'
 
-import List from './List.tsx';
+import List from './List';
 import SearchForm from './SearchForm/'
 
 
