@@ -56,7 +56,100 @@ exports[`Item renders snapshot 1`] = `
 `;
 
 exports[`List renders snapshot for List component 1`] = `
-Array [
+<div>
+  <div
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <span
+      onClick={[Function]}
+      style={
+        Object {
+          "width": "40%",
+        }
+      }
+      type="button"
+    >
+      <button
+        style={
+          Object {
+            "backgroundColor": "white",
+          }
+        }
+      >
+        Title
+      </button>
+    </span>
+    <span
+      onClick={[Function]}
+      style={
+        Object {
+          "width": "30%",
+        }
+      }
+      type="button"
+    >
+      <button
+        style={
+          Object {
+            "backgroundColor": "white",
+          }
+        }
+      >
+        Author
+      </button>
+    </span>
+    <span
+      onClick={[Function]}
+      style={
+        Object {
+          "width": "10%",
+        }
+      }
+      type="button"
+    >
+      <button
+        style={
+          Object {
+            "backgroundColor": "white",
+          }
+        }
+      >
+        Comments
+      </button>
+    </span>
+    <span
+      onClick={[Function]}
+      style={
+        Object {
+          "width": "10%",
+        }
+      }
+      type="button"
+    >
+      <button
+        style={
+          Object {
+            "backgroundColor": "white",
+          }
+        }
+      >
+        Points
+      </button>
+    </span>
+    <span
+      style={
+        Object {
+          "width": "10%",
+        }
+      }
+    >
+      Actions
+    </span>
+  </div>
   <div
     className="sc-bdnxRM fBLZFc"
   >
@@ -108,7 +201,7 @@ Array [
         </svg>
       </button>
     </span>
-  </div>,
+  </div>
   <div
     className="sc-bdnxRM fBLZFc"
   >
@@ -160,6 +253,6 @@ Array [
         </svg>
       </button>
     </span>
-  </div>,
-]
+  </div>
+</div>
 `;

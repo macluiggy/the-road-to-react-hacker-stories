@@ -1,21 +1,80 @@
 import styled from 'styled-components';
 import { ReactComponent as Check } from '../check.svg';
+import { sortBy } from 'lodash';
 
 import React from 'react';
 
+const SORTS = {
+    NONE: list => list,
+    TITLE: list => sortBy(list, 'title'),
+    AUTHOR: list => sortBy(list, 'author'),
+    COMMENT: list => sortBy(list, 'num_comments').reverse(),
+    POINT: list => sortBy(list, 'points').reverse(),
+}
 const List = 
-        ({list, onRemoveItem}: listProps) => (
-                    console.log('B:list') ||
-                <>
-                    {list.map(item => (
+        ({list, onRemoveItem}: listProps) => {
+            const [sort, setSort] = React.useState('NONE');
+
+            const handleSort = sortKey => {
+                setSort(sortKey);
+            }
+
+            const sortFunction = SORTS[sort];
+            const sortedList = sortFunction(list);
+
+            return (console.log('B:list')) || (
+                <div>
+                    <div style={{ display: 'flex' }}>
+                        <span 
+                        style={{ width: '40%' }}
+                        type='button' onClick={() => handleSort('TITLE')} >
+                            <button style={{
+                                backgroundColor: sort === 'TITLE' ? 'red' : 'white'
+                            }} >
+                                Title
+                            </button>
+                        </span>
+                        <span 
+                        style={{ width: '30%' }}
+                        type='button' onClick={() => handleSort('AUTHOR')} >
+                            <button style={{
+                                backgroundColor: sort === 'AUTHOR' ? 'red' : 'white',
+                            }} >
+                                Author
+                            </button>
+                        </span>
+                        <span 
+                        style={{ width: '10%' }}
+                        type='button' onClick={() => handleSort('COMMENT')} >
+                            <button style={{
+                                backgroundColor: sort === 'COMMENT' ? 'red' : 'white',
+                            }} >
+                                Comments
+                            </button>
+                        </span>
+                        <span 
+                        style={{ width: '10%' }}
+                        type='button' onClick={() => handleSort('POINT')} >
+                            <button style={{
+                                backgroundColor: sort === 'POINT' ? 'red' : 'white',
+                            }} >
+                                Points
+                            </button>
+                        </span>
+                        <span 
+                        style={{ width: '10%' }}>Actions</span>
+                    </div>
+
+                    {sortedList.map(item => (
                         <Item 
                             key={item.objectID} 
                             item={item}
                             onRemoveItem={onRemoveItem} 
                         />
                     ))}
-                </>
-        )
+                </div>
+            )
+        }
 
 const StyledItem = styled.div`
 display: flex;
