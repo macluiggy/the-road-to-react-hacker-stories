@@ -93,6 +93,9 @@ describe('Item', () => {
       .toEqual(4)
     });
 
+  //este test crea un snapshot de la estructura HTML del componente la primera vez que se hace
+  //un test, de esta manera si se llega a cambiar la estructura, y luego se corre otro test,
+  //este fallara y mostrara los cambios que hay con respecto a la ultima snapshot
   test('renders snapshot', () => {
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot()
@@ -119,15 +122,18 @@ describe('List', () => {
     },
   ]
 
-  it('renders two items', () => {
-    //crea la funcion jest para que tome el lugar de la funcion del evento
-    //cuando sea llamada
-    const handleRemoveItem = jest.fn()
 
-    //crea un component jest para el componente List
-    const component = renderer.create(
-      <List list={list} onRemoveItem={handleRemoveItem} />
-    );
+  //crea la funcion jest para que tome el lugar de la funcion del evento
+  //cuando sea llamada
+  const handleRemoveItem = jest.fn()
+
+  //crea un component jest para el componente List
+  const component = renderer.create(
+    <List list={list} onRemoveItem={handleRemoveItem} />
+  );
+
+  it('renders two items', () => {
+
     //Dado que hay mas de un item dentro del cual cada item tiene el atributo 'a'
     //se debe usar findAllByType
     //se espera que el primer elemento a tenga su url igual a list[0].url
@@ -145,6 +151,11 @@ describe('List', () => {
     //se espera que la cantidad de Item que se mapean en el componente
     //List sean los mismos que la variable list
     expect(component.root.findAllByType(Item).length).toEqual(2)
+  })
+
+  test('renders snapshot for List component', () => {
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot()
   })
 })
 
@@ -232,12 +243,18 @@ describe('SearchForm', () =>{
       component.root.findByType('button').props.disabled
     ).toBeTruthy();
   })
+
+  test('renders snapshot for SearchForm Component', () => {
+    let arból = component.toJSON();
+    expect(arból).toMatchSnapshot()
+  })
 })
 
 //esto simula la libreria axios en jest
 jest.mock('axios');
 
 describe('App', () => {
+
   it('succeeds fetching data with list', async () => {
     //crea una lista que sera los datos a traer
     const list = [
@@ -304,6 +321,11 @@ describe('App', () => {
     //mensaje que del test
     expect(component.root.findByType('p').props.children)
           .toEqual('Something went wrong...')
+  })
+
+  test('renders snapshot for App component', () => {
+    let hola = renderer.create(<App />).toJSON();
+    expect(hola).toMatchSnapshot()
   })
 })
 
