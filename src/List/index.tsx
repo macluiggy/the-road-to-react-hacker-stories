@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ReactComponent as Check } from '../check.svg';
 import { sortBy } from 'lodash';
+import { Icon } from '@iconify/react';
 
 import React from 'react';
 
@@ -37,7 +38,12 @@ const List =
                             <button style={{
                                 backgroundColor: sort.sortKey === 'TITLE' ? 'red' : 'white'
                             }} >
-                                Title
+                                Title <Icon 
+                                    icon={ sort.sortKey === 'TITLE'
+                                            ? sort.isReverse
+                                                ? 'akar-icons:arrow-down'
+                                                : 'akar-icons:arrow-up'
+                                            : '' } />
                             </button>
                         </span>
                         <span 
@@ -46,7 +52,12 @@ const List =
                             <button style={{
                                 backgroundColor: sort.sortKey === 'AUTHOR' ? 'red' : 'white',
                             }} >
-                                Author
+                                Author <Icon 
+                                    icon={ sort.sortKey === 'AUTHOR'
+                                            ? sort.isReverse
+                                                ? 'akar-icons:arrow-down'
+                                                : 'akar-icons:arrow-up'
+                                            : '' } />
                             </button>
                         </span>
                         <span 
@@ -55,7 +66,12 @@ const List =
                             <button style={{
                                 backgroundColor: sort.sortKey === 'COMMENT' ? 'red' : 'white',
                             }} >
-                                Comments
+                                Comments <Icon 
+                                    icon={ sort.sortKey === 'COMMENT'
+                                            ? sort.isReverse
+                                                ? 'akar-icons:arrow-down'
+                                                : 'akar-icons:arrow-up'
+                                            : '' } />
                             </button>
                         </span>
                         <span 
@@ -64,7 +80,12 @@ const List =
                             <button style={{
                                 backgroundColor: sort.sortKey === 'POINT' ? 'red' : 'white',
                             }} >
-                                Points
+                                Points <Icon 
+                                    icon={ sort.sortKey === 'POINT'
+                                            ? sort.isReverse
+                                                ? 'akar-icons:arrow-down'
+                                                : 'akar-icons:arrow-up'
+                                            : '' } />
                             </button>
                         </span>
                         <span 

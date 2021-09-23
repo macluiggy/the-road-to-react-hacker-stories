@@ -189,6 +189,29 @@ const getSumComments = stories => {
     )
 }
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
+
+const extractSearchTerm = url => url.replace(API_ENDPOINT, '');
+
+const getLastSearches = urls =>
+  urls
+  .reduce((result, url, index) => {
+        const searchTerm = extractSearchTerm(url);
+        if (index === 0) {
+            return result.concat(searchTerm);
+        }
+        const previousSearchTerm = result[result.length - 1];
+        if (searchTerm === previousSearchTerm) {
+            return result;
+        } else {
+            return result.concat(searchTerm);
+        }
+    }, [])
+    .slice(-5)
+    .slice(0, -1)
+    .map(extractSearchTerm);
+
+const getUrl = searchTerm =>`${API_ENDPOINT}${searchTerm}`;
+
 const App = () => {
     console.log('B:App')
     const [searchTerm, setSearchTerm] = useSemiPersistenceStatesss('search', 'React');
@@ -196,12 +219,16 @@ const App = () => {
             storiesReducer, 
             {data: [], isLoading: false, isError: false}
         );
-    const [url, setUrl] = React.useState(
-            `${API_ENDPOINT}${searchTerm}`
-        )
+    // important: still wraps the returned value in []
+    const [urls, setUrls] = React.useState([getUrl(searchTerm)])
     //const [isLoading, setIsLoading] = React.useState(false);
     //const [isError, setIsError] = React.useState(false);
 
+    
+
+    
+
+    const lastSearches = getLastSearches(urls);
     const handleFetchStories = React.useCallback( async () => {
         //if (!searchTerm) return;
 
@@ -231,7 +258,8 @@ const App = () => {
                 dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
             })*/
             try {
-                const result = await axios.get(url);
+                const lastUtl = urls[urls.length - 1];
+                const result = await axios.get(lastUtl);
 
                 dispatchStories({
                     type: 'STORIES_FETCH_SUCCESS',
@@ -240,7 +268,7 @@ const App = () => {
             } catch {
                 dispatchStories({ type: 'STORIES_FETCH_FAILURE' });
             }
-    }, [url])
+    }, [urls])
     //console.log(searchTerm)
 
     React.useEffect(() => {
@@ -263,21 +291,39 @@ const App = () => {
     ) => {
         setSearchTerm(event.target.value);
     }
-
+    //console.log('log message'.split('').slice(-5) + 'zzzzzzz')
     const handleSearchSubmit = (
         event: React.FormEvent<HTMLFormElement>
     ) => {
-        setUrl(`${API_ENDPOINT}${searchTerm}`)
+        //const url = `${API_ENDPOINT}${searchTerm}`;
+        //setUrls(urls.concat(url))
+        handleSearch(searchTerm)
 
         event.preventDefault()
     }
 
+    const handleLastSearch = searchTerm => {
+            //do something
+            //const url = `${API_ENDPOINT}${searchTerm}`;
+            //setUrls(url.concat(url));
+            setSearchTerm(searchTerm)
+
+            handleSearch(searchTerm)
+    }
+
+    const handleSearch = searchTerm => {
+        const url = getUrl(searchTerm)
+        setUrls(url.concat(url));
+    }
 /*    const searchedStories = stories.data.filter(story =>
         story.title
             .toLowerCase()
             .includes(searchTerm.toLowerCase()))*/;
 
     const sumComments = React.useMemo(() => getSumComments(stories), [stories]);
+
+    
+
     return (
         <StyledContainer className={styles.container}>
             <StyledHeadlinePrimary>My Hacker Stories with {sumComments} comments.</StyledHeadlinePrimary>
@@ -288,7 +334,10 @@ const App = () => {
                 className='button button_large'
             />
 
-
+            <LastSearches
+              lastSearches={lastSearches}
+              onLastSearches={handleLastSearch}
+            />
             {/*
             <UseCallback />
             <UseCallback2 />
@@ -298,7 +347,6 @@ const App = () => {
             <ComponentTypes />
             <Memo />
             */}
-
 
 
             {stories.isError && <p>Something went wrong...</p>}
@@ -328,6 +376,19 @@ const App = () => {
     )
 }
 
+const LastSearches = ({ lastSearches, onLastSearches }) => (
+    <>
+        {lastSearches.map((searchTerm, index) => (
+            <button
+              key={searchTerm+index}
+              type='button'
+              onClick={() => handleLastSearch(searchTerm)}
+            >
+                {searchTerm}
+            </button>
+        ))}
+    </>
+)
 
 //const SimpleTextComponent = () => 'Search: ';
 

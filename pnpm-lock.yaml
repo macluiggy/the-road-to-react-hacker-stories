@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@iconify/react': ^3.0.1
   '@svgr/webpack': ^5.5.0
   '@testing-library/jest-dom': ^5.11.4
   '@testing-library/react': ^11.1.0
@@ -45,6 +46,7 @@ dependencies:
   web-vitals: 1.1.2
 
 devDependencies:
+  '@iconify/react': 3.0.1
   identity-obj-proxy: 3.0.0
   react-test-renderer: 17.0.2_react@17.0.2
 
@@ -1651,6 +1653,10 @@ packages:
   /@humanwhocodes/object-schema/1.2.0:
     resolution: {integrity: sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==}
     dev: false
+
+  /@iconify/react/3.0.1:
+    resolution: {integrity: sha512-yUskSSR80JzRSWcqNsBAG9AN802XzZgHsex8mTOkMLYcPQC3fk1XwK17ulnY5vf692OafhGCAMccR8TWKFaGdw==}
+    dev: true
 
   /@istanbuljs/load-nyc-config/1.1.0:
     resolution: {integrity: sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ==}
