@@ -120,6 +120,64 @@ letter-spacing: 2px;
             }
         },
     ];*/
+
+/*const getAsyncStories = () =>
+    new Promise((resolve, reject) => setTimeout(reject, 2000));*/
+
+const API_BASE = 'https://hn.algolia.com/api/v1';
+const API_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
+const PARAM_PAGE = 'page=';
+
+const getUrl = (searchTerm, page) =>
+  `${API_BASE}${API_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`;
+
+const extractSearchTerm = url =>
+  url
+    .substring(url.lastIndexOf('?') + 1, url.lastIndexOf('&'))
+    .replace(PARAM_SEARCH, '');
+
+const getLastSearches = urls =>
+  urls
+  .reduce((result, url, index) => {
+        const searchTerm = extractSearchTerm(url);
+        if (index === 0) {
+            return result.concat(searchTerm);
+        }
+        const previousSearchTerm = result[result.length - 1];
+        if (searchTerm === previousSearchTerm) {
+            return result;
+        } else {
+            return result.concat(searchTerm);
+        }
+    }, [])
+    .slice(-5)
+    .slice(0, -1)
+
+const useSemiPersistenceStatesss = (
+    key: string, 
+    initialState: string,
+): [string, (newValue: string) => void] => {
+    const isMounted = React.useRef(false);
+
+    const [value, setValue] = React.useState(
+        localStorage.getItem(key) || initialState
+        )
+
+    React.useEffect(() => {
+        if (!isMounted.current) {
+            isMounted.current = true;
+            //console.log(localStorage.getItem('identificador'))
+        } else {
+            console.log('A')
+            localStorage.setItem(key, value)
+        }
+
+    }, [value, key]);
+
+        return [value, setValue]
+}
+
 const storiesReducer = (
     state: StoriesState,
     action: StoriesAction
@@ -159,63 +217,7 @@ const storiesReducer = (
             throw new Error();
     }
 }
-/*const getAsyncStories = () =>
-    new Promise((resolve, reject) => setTimeout(reject, 2000));*/
 
-const API_BASE = 'https://hn.algolia.com/api/v1';
-const API_SEARCH = '/search';
-const PARAM_SEARCH = 'query=';
-const PARAM_PAGE = 'page=';
-
-const getUrl = (searchTerm, page) =>
-  `${API_BASE}${API_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`;
-
-const extractSearchTerm = url =>
-    url
-      .substring(url.lastIndexOf('?') + 1, url.lastIndexOf('&'))
-      .replace(PARAM_SEARCH, '');
-
-const getLastSearches = urls =>
-  urls
-  .reduce((result, url, index) => {
-        const searchTerm = extractSearchTerm(url);
-        if (index === 0) {
-            return result.concat(searchTerm);
-        }
-        const previousSearchTerm = result[result.length - 1];
-        if (searchTerm === previousSearchTerm) {
-            return result;
-        } else {
-            return result.concat(searchTerm);
-        }
-    }, [])
-    .slice(-5)
-    .slice(0, -1)
-    .map(extractSearchTerm);
-
-const useSemiPersistenceStatesss = (
-    key: string, 
-    initialState: string,
-): [string, (newValue: string) => void] => {
-    const isMounted = React.useRef(false);
-
-    const [value, setValue] = React.useState(
-        localStorage.getItem(key) || initialState
-        )
-
-    React.useEffect(() => {
-        if (!isMounted.current) {
-            isMounted.current = true;
-            //console.log(localStorage.getItem('identificador'))
-        } else {
-            console.log('A')
-            localStorage.setItem(key, value)
-        }
-
-    }, [value, key]);
-
-        return [value, setValue]
-}
 const getSumComments = stories => {
     console.log('C')
     return stories.data.reduce(
