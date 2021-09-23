@@ -13,14 +13,20 @@ const SORTS = {
 }
 const List = 
         ({list, onRemoveItem}: listProps) => {
-            const [sort, setSort] = React.useState('NONE');
+            const [sort, setSort] = React.useState({
+                sortKey: 'NONE',
+                isReverse: false,
+            });
 
             const handleSort = sortKey => {
-                setSort(sortKey);
+                const isReverse = sort.sortKey === sortKey && !sort.isReverse;
+                setSort({ sortKey, isReverse });
             }
 
-            const sortFunction = SORTS[sort];
-            const sortedList = sortFunction(list);
+            const sortFunction = SORTS[sort.sortKey];
+            const sortedList = sort.isReverse
+                ? sortFunction(list).reverse()
+                : sortFunction(list);
 
             return (console.log('B:list')) || (
                 <div>
@@ -29,7 +35,7 @@ const List =
                         style={{ width: '40%' }}
                         type='button' onClick={() => handleSort('TITLE')} >
                             <button style={{
-                                backgroundColor: sort === 'TITLE' ? 'red' : 'white'
+                                backgroundColor: sort.sortKey === 'TITLE' ? 'red' : 'white'
                             }} >
                                 Title
                             </button>
@@ -38,7 +44,7 @@ const List =
                         style={{ width: '30%' }}
                         type='button' onClick={() => handleSort('AUTHOR')} >
                             <button style={{
-                                backgroundColor: sort === 'AUTHOR' ? 'red' : 'white',
+                                backgroundColor: sort.sortKey === 'AUTHOR' ? 'red' : 'white',
                             }} >
                                 Author
                             </button>
@@ -47,7 +53,7 @@ const List =
                         style={{ width: '10%' }}
                         type='button' onClick={() => handleSort('COMMENT')} >
                             <button style={{
-                                backgroundColor: sort === 'COMMENT' ? 'red' : 'white',
+                                backgroundColor: sort.sortKey === 'COMMENT' ? 'red' : 'white',
                             }} >
                                 Comments
                             </button>
@@ -56,7 +62,7 @@ const List =
                         style={{ width: '10%' }}
                         type='button' onClick={() => handleSort('POINT')} >
                             <button style={{
-                                backgroundColor: sort === 'POINT' ? 'red' : 'white',
+                                backgroundColor: sort.sortKey === 'POINT' ? 'red' : 'white',
                             }} >
                                 Points
                             </button>
