@@ -154,7 +154,7 @@ const getLastSearches = urls =>
     .slice(-5)
     .slice(0, -1)
 
-const useSemiPersistenceStatesss = (
+const useSemiPersistentState = (
     key: string, 
     initialState: string,
 ): [string, (newValue: string) => void] => {
@@ -228,14 +228,14 @@ const getSumComments = stories => {
 
 const App = () => {
     console.log('B:App')
-    const [searchTerm, setSearchTerm] = useSemiPersistenceStatesss('search', 'React');
+    const [searchTerm, setSearchTerm] = useSemiPersistentState('search', 'React');
 
     // important: still wraps the returned value in []
-    const [urls, setUrls] = React.useState([getUrl(searchTerm)]);
+    const [urls, setUrls] = React.useState([getUrl(searchTerm, 0)]);
 
     const [stories, dispatchStories] = React.useReducer(
             storiesReducer, 
-            {data: [], page: 0, isLoading: false, isError: false}
+            { data: [], page: 0, isLoading: false, isError: false }
         );
     //const [isLoading, setIsLoading] = React.useState(false);
     //const [isError, setIsError] = React.useState(false);
