@@ -168,7 +168,7 @@ const PARAM_SEARCH = 'query=';
 const PARAM_PAGE = 'page=';
 
 const getUrl = (searchTerm, page) =>
-  `${API_BASE}${API_SEARCH}?${PARAM_SEARCH}${searchTerm}${PARAM_PAGE}${page}`;
+  `${API_BASE}${API_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`;
 
 const extractSearchTerm = url =>
     url
