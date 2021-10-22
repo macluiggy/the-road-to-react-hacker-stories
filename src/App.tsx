@@ -2,9 +2,9 @@ import React from 'react';
 import axios from 'axios';
 
 import styles from './App.module.scss';
-import cs from 'classnames';
+//import cs from 'classnames';
 import styled from 'styled-components';
-import { ReactComponent as Check } from './check.svg';
+//import { ReactComponent as Check } from './check.svg';
 //import PRACTICING from './PRACTICING.js'
 //import API from './API'
 //import UseRef from './components/useRef';
@@ -28,7 +28,6 @@ import { ReactComponent as Check } from './check.svg';
 
 import List from './List';
 import SearchForm from './SearchForm/'
-
 
 type Story = {
         objectID: string;
